@@ -36,6 +36,9 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
     setShowHints(false);
   };
 
+  // Check if there are hints to display
+  const hasHints = challenge.hints && challenge.hints.length > 0;
+
   return (
     <Card className="w-full max-w-4xl mx-auto">
       <CardHeader>
@@ -80,7 +83,7 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
             </div>
           )}
 
-          {challenge.hints && challenge.hints.length > 0 && (
+          {hasHints && (
             <div className="mt-4">
               <div className="flex items-center justify-between">
                 <h4 className="text-md font-medium">Hints:</h4>

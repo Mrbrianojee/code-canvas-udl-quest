@@ -1,4 +1,3 @@
-
 export interface Challenge {
   id: string;
   title: string;
@@ -36,7 +35,12 @@ print("Hello, World!")`
     categories: ["Fundamentals", "Syntax"],
     createdAt: "2023-04-15",
     example: `helloWorld(); // Output: Hello, World!`,
-    explanation: "This challenge introduces syntax differences between programming languages.\n\nEach language has its own way of defining functions and printing to the console, but they all accomplish the same task."
+    explanation: "This challenge introduces syntax differences between programming languages.\n\nEach language has its own way of defining functions and printing to the console, but they all accomplish the same task.",
+    hints: [
+      "Remember that in JavaScript, you can use console.log() to print to the console.",
+      "Function declarations in JavaScript start with the 'function' keyword.",
+      "Don't forget to add parentheses after your function name!"
+    ]
   },
   {
     id: "fizzbuzz",
