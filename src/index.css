@@ -107,15 +107,9 @@
     font-family: 'Fira Code', 'Menlo', monospace;
   }
   
-  /* Remove any custom styling that might interfere with textarea input */
-  textarea.code-input,
-  .code-block + textarea,
+  /* Ensure the textarea in the code editor is fully visible and has priority */
   textarea {
-    font-family: 'Fira Code', 'Menlo', monospace !important;
-    color: rgba(255, 255, 255, 0.8) !important;
-    caret-color: white !important;
-    background-color: transparent !important;
-    z-index: 10 !important; /* Make sure the textarea is on top */
+    font-family: 'Fira Code', 'Menlo', monospace;
   }
   
   /* Custom styling for line numbers */
