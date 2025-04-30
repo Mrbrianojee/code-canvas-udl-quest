@@ -1,9 +1,9 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Play } from "lucide-react";
+import Prism from "prismjs";
 
 interface ExecutableCodeEditorProps {
   initialCode: string;
@@ -18,6 +18,29 @@ const ExecutableCodeEditor = ({ initialCode, language }: ExecutableCodeEditorPro
   const [pyodideLoading, setPyodideLoading] = useState(false);
   const [pyodideReady, setPyodideReady] = useState(false);
   const [pyodide, setPyodide] = useState<any>(null);
+  const editorRef = useRef<HTMLPreElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Map component props language to Prism language
+  const getPrismLanguage = (lang: string): string => {
+    const langMap: Record<string, string> = {
+      js: "javascript",
+      javascript: "javascript",
+      py: "python",
+      python: "python",
+      ts: "typescript",
+      typescript: "typescript",
+    };
+    
+    return langMap[lang.toLowerCase()] || "javascript";
+  };
+
+  // Handle code changes and syntax highlighting
+  useEffect(() => {
+    if (editorRef.current) {
+      Prism.highlightElement(editorRef.current);
+    }
+  }, [code, language]);
 
   // Load Pyodide when needed for Python execution
   useEffect(() => {
@@ -163,14 +186,59 @@ ${pythonCode}
     }
   };
 
+  // Handle textarea input and sync with highlighted display
+  const handleCodeChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setCode(e.target.value);
+  };
+
+  // Handle tab key in textarea
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const target = e.target as HTMLTextAreaElement;
+      const start = target.selectionStart;
+      const end = target.selectionEnd;
+      
+      // Insert 2 spaces for tab
+      const newText = code.substring(0, start) + '  ' + code.substring(end);
+      setCode(newText);
+      
+      // Set cursor position after the inserted tab
+      setTimeout(() => {
+        if (textareaRef.current) {
+          textareaRef.current.selectionStart = start + 2;
+          textareaRef.current.selectionEnd = start + 2;
+        }
+      }, 0);
+    }
+  };
+
   return (
     <div className="space-y-4 mt-4">
-      <Textarea
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-        className="font-mono h-80 p-4 text-sm"
-        placeholder={`Write your ${language} code here...`}
-      />
+      <div className="relative font-mono text-sm">
+        {/* Hidden syntax highlighted code */}
+        <pre 
+          ref={editorRef}
+          className="absolute top-0 left-0 w-full h-full p-4 pointer-events-none code-block line-numbers"
+          aria-hidden="true"
+        >
+          <code className={`language-${getPrismLanguage(language)}`}>
+            {code || ' '} {/* Ensure there's always content for highlighting */}
+          </code>
+        </pre>
+        
+        {/* Actual editable textarea */}
+        <textarea
+          ref={textareaRef}
+          value={code}
+          onChange={handleCodeChange}
+          onKeyDown={handleKeyDown}
+          className="w-full h-80 p-4 bg-transparent text-transparent caret-zinc-200 resize-none font-mono"
+          placeholder={`Write your ${language} code here...`}
+          spellCheck="false"
+          style={{ caretColor: 'white' }}
+        />
+      </div>
       
       <div className="flex justify-between items-center">
         <div className="flex gap-2">

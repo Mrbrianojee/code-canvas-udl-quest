@@ -1,8 +1,20 @@
 
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Clipboard, Check } from "lucide-react";
+import Prism from "prismjs";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-jsx";
+import "prismjs/components/prism-tsx";
+import "prismjs/components/prism-java";
+import "prismjs/components/prism-c";
+import "prismjs/components/prism-cpp";
+import "prismjs/components/prism-csharp";
+import "prismjs/plugins/line-numbers/prism-line-numbers";
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 interface CodeBlockProps {
   code: string;
@@ -12,6 +24,33 @@ interface CodeBlockProps {
 
 const CodeBlock = ({ code, language = "javascript", className }: CodeBlockProps) => {
   const [copied, setCopied] = useState(false);
+  const codeRef = useRef<HTMLElement>(null);
+
+  // Map component props language to Prism language
+  const getPrismLanguage = (lang: string): string => {
+    const langMap: Record<string, string> = {
+      js: "javascript",
+      javascript: "javascript",
+      py: "python",
+      python: "python",
+      ts: "typescript",
+      typescript: "typescript",
+      jsx: "jsx",
+      tsx: "tsx",
+      java: "java",
+      c: "c",
+      cpp: "cpp",
+      csharp: "csharp",
+    };
+    
+    return langMap[lang.toLowerCase()] || "javascript";
+  };
+
+  useEffect(() => {
+    if (codeRef.current) {
+      Prism.highlightElement(codeRef.current);
+    }
+  }, [code, language]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
@@ -21,8 +60,13 @@ const CodeBlock = ({ code, language = "javascript", className }: CodeBlockProps)
 
   return (
     <div className="relative group">
-      <pre className={cn("code-block", className)}>
-        <code>{code}</code>
+      <pre className={cn("code-block line-numbers", className)}>
+        <code 
+          ref={codeRef} 
+          className={`language-${getPrismLanguage(language)}`}
+        >
+          {code}
+        </code>
       </pre>
       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
         <Button
