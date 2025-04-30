@@ -215,29 +215,33 @@ ${pythonCode}
 
   return (
     <div className="space-y-4 mt-4">
-      <div className="relative font-mono text-sm border rounded-md overflow-hidden">
-        {/* Hidden syntax highlighted code */}
+      <div className="relative font-mono text-sm border rounded-md overflow-hidden bg-zinc-950">
+        {/* Actual editable textarea - placing it first in the DOM for better focus handling */}
+        <textarea
+          ref={textareaRef}
+          value={code}
+          onChange={handleCodeChange}
+          onKeyDown={handleKeyDown}
+          className="w-full h-80 p-4 font-mono resize-none absolute top-0 left-0 right-0 bottom-0 z-10"
+          style={{ 
+            color: "rgba(255, 255, 255, 0.8)",
+            background: "transparent",
+            caretColor: "white"
+          }}
+          placeholder={`Write your ${language} code here...`}
+          spellCheck="false"
+        />
+        
+        {/* Hidden syntax highlighted code - placed below the textarea */}
         <pre 
           ref={editorRef}
-          className="absolute top-0 left-0 w-full h-full p-4 pointer-events-none code-block line-numbers"
+          className="w-full h-80 p-4 pointer-events-none code-block overflow-hidden"
           aria-hidden="true"
         >
           <code className={`language-${getPrismLanguage(language)}`}>
             {code || ' '} {/* Ensure there's always content for highlighting */}
           </code>
         </pre>
-        
-        {/* Actual editable textarea - fixed for visibility */}
-        <textarea
-          ref={textareaRef}
-          value={code}
-          onChange={handleCodeChange}
-          onKeyDown={handleKeyDown}
-          className="w-full h-80 p-4 font-mono resize-none bg-transparent relative z-10"
-          style={{ color: "rgba(255, 255, 255, 0.8)" }} /* Inline style to ensure color is applied */
-          placeholder={`Write your ${language} code here...`}
-          spellCheck="false"
-        />
       </div>
       
       <div className="flex justify-between items-center">
