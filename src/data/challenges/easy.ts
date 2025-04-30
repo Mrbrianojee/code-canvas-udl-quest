@@ -1,4 +1,3 @@
-
 import { Challenge } from "./types";
 
 export const easyChallenges: Challenge[] = [
@@ -262,6 +261,155 @@ areAnagrams("rail safety", "fairy tales");  // returns true`,
       "You can sort both strings and compare them character by character.",
       "Another approach is to count the frequency of each character in both strings and compare the counts.",
       "Remember to handle special cases like spaces and case sensitivity according to your requirements."
+    ]
+  },
+  {
+    id: "sum-of-two-numbers",
+    title: "Sum of Two Numbers",
+    description: "Write a function that takes two numbers as arguments and returns their sum.\n\nThis is a very basic exercise to practice function syntax and arithmetic operations.",
+    difficulty: "easy",
+    solutions: {
+      javascript: `function sum(a, b) {
+  return a + b;
+}`,
+      python: `def sum(a, b):
+    return a + b`
+    },
+    categories: ["Fundamentals", "Arithmetic"],
+    createdAt: "2023-05-10",
+    example: `sum(1, 2);  // returns 3
+sum(-1, 1); // returns 0
+sum(5, 7);  // returns 12`,
+    explanation: "This is the most fundamental programming exercise possible. We create a function that takes two parameters and returns their sum using the addition operator.\n\nIt's a simple demonstration of function declaration, parameters, and return values.",
+    hints: [
+      "Use the '+' operator to add two numbers together.",
+      "Remember to return the result of the addition.",
+      "In most languages, this can be done in a single line of code."
+    ]
+  },
+  {
+    id: "factorial",
+    title: "Factorial Calculator",
+    description: "Write a function that calculates the factorial of a non-negative integer.\n\nThe factorial of a non-negative integer n is the product of all positive integers less than or equal to n. It is denoted by n!.",
+    difficulty: "easy",
+    solutions: {
+      javascript: `// Iterative approach
+function factorial(n) {
+  if (n < 0) return null; // Invalid input
+  if (n <= 1) return 1;   // Base case
+  
+  let result = 1;
+  for (let i = 2; i <= n; i++) {
+    result *= i;
+  }
+  return result;
+}
+
+// Recursive approach
+function factorialRecursive(n) {
+  if (n < 0) return null; // Invalid input
+  if (n <= 1) return 1;   // Base case
+  return n * factorialRecursive(n - 1);
+}`,
+      python: `# Iterative approach
+def factorial(n):
+    if n < 0:
+        return None  # Invalid input
+    if n <= 1:
+        return 1     # Base case
+    
+    result = 1
+    for i in range(2, n+1):
+        result *= i
+    return result
+
+# Recursive approach
+def factorial_recursive(n):
+    if n < 0:
+        return None  # Invalid input
+    if n <= 1:
+        return 1     # Base case
+    return n * factorial_recursive(n - 1)`
+    },
+    categories: ["Recursion", "Math", "Algorithms"],
+    createdAt: "2023-05-15",
+    example: `factorial(0);   // returns 1
+factorial(1);   // returns 1
+factorial(5);   // returns 120
+factorial(10);  // returns 3,628,800`,
+    timeComplexity: "O(n)",
+    explanation: "This challenge demonstrates both iterative and recursive approaches to calculating a factorial.\n\nIn the iterative approach, we use a for loop to multiply numbers from 2 up to n.\n\nIn the recursive approach, we define the factorial in terms of smaller factorials: n! = n * (n-1)!. We use base cases to stop the recursion when n is 0 or 1.",
+    hints: [
+      "Remember that 0! = 1 and 1! = 1 are your base cases.",
+      "You can solve this iteratively with a for loop or recursively by calling the function itself.",
+      "For iterative solution, start with result = 1 and multiply it by each integer from 2 to n.",
+      "For recursive solution, use the formula n! = n * (n-1)! until you reach a base case.",
+      "Watch out for stack overflow with large inputs when using recursion."
+    ]
+  },
+  {
+    id: "count-vowels",
+    title: "Count Vowels",
+    description: "Write a function that counts the number of vowels in a given string.\n\nFor this challenge, consider 'a', 'e', 'i', 'o', and 'u' as vowels. The function should be case-insensitive.",
+    difficulty: "easy",
+    solutions: {
+      javascript: `function countVowels(str) {
+  // Convert string to lowercase
+  const lowerStr = str.toLowerCase();
+  
+  // Define vowels
+  const vowels = ['a', 'e', 'i', 'o', 'u'];
+  
+  // Count vowels
+  let count = 0;
+  for (const char of lowerStr) {
+    if (vowels.includes(char)) {
+      count++;
+    }
+  }
+  
+  return count;
+}
+
+// Alternative using regex
+function countVowelsRegex(str) {
+  // Use regex to match all vowels (case-insensitive) and return the match count
+  const matches = str.match(/[aeiou]/gi);
+  return matches ? matches.length : 0;
+}`,
+      python: `def count_vowels(s):
+    # Convert string to lowercase
+    lower_str = s.lower()
+    
+    # Define vowels
+    vowels = ['a', 'e', 'i', 'o', 'u']
+    
+    # Count vowels
+    count = 0
+    for char in lower_str:
+        if char in vowels:
+            count += 1
+    
+    return count
+
+# Alternative using list comprehension
+def count_vowels_alt(s):
+    vowels = 'aeiou'
+    return sum(1 for char in s.lower() if char in vowels)`
+    },
+    categories: ["Strings", "Counting"],
+    createdAt: "2023-05-20",
+    example: `countVowels("hello");      // returns 2
+countVowels("WORLD");      // returns 1
+countVowels("JavaScript"); // returns 3`,
+    timeComplexity: "O(n)",
+    explanation: "This solution iterates through each character in the input string and checks if it's a vowel.\n\nTo make the function case-insensitive, we first convert the entire string to lowercase. Then we define what characters are considered vowels and count them.\n\nThe alternative solution uses regular expressions to match all vowels in the string at once.",
+    hints: [
+      "Convert the input string to lowercase to make your check case-insensitive.",
+      "Define which characters are vowels (typically a, e, i, o, u).",
+      "Iterate through each character and check if it's in your vowel list.",
+      "Regular expressions can be a more concise way to solve this problem: use /[aeiou]/gi in JavaScript.",
+      "Don't forget to handle edge cases like empty strings."
     ]
   }
 ];

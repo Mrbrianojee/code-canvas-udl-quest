@@ -235,13 +235,13 @@ mergeIntervals([[1,4],[4,5]]);            // returns [[1,5]]`,
 isValid("()[]{}");    // returns true
 isValid("(]");        // returns false`,
     timeComplexity: "O(n)",
-    explanation: "This solution uses a stack data structure to track opening brackets and ensure they're properly matched with closing brackets.\n\nAs we iterate through the string, we push the expected closing bracket onto the stack whenever we encounter an opening bracket. When we encounter a closing bracket, we check if it matches the most recent expected closing bracket (top of the stack).\n\nIf at any point a closing bracket doesn't match the expected one, or if we have closing brackets with no matching opening brackets, the string is invalid.",
+    explanation: "This solution uses a stack data structure to keep track of opening brackets.\n\nFor each character in the string, if it's an opening bracket, we push its corresponding closing bracket onto the stack. If it's a closing bracket, we check if it matches the top of our stack. If it doesn't match or the stack is empty, the string is invalid.\n\nAfter processing all characters, the stack should be empty if the string is valid.",
     hints: [
       "Use a stack data structure to keep track of opening brackets.",
-      "When you encounter an opening bracket, push its corresponding closing bracket onto the stack.",
-      "When you encounter a closing bracket, check if it matches the top element on the stack.",
-      "At the end, the stack should be empty if all brackets were properly matched.",
-      "Handle edge cases like empty strings or strings with only opening or only closing brackets."
+      "When you encounter an opening bracket, push the corresponding closing bracket onto the stack.",
+      "When you encounter a closing bracket, check if it matches the top of the stack.",
+      "If the stack is empty at the end, the string is valid.",
+      "Consider edge cases like an empty string or a string with only one bracket."
     ]
   }
 ];
