@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
@@ -14,6 +14,50 @@ const ExecutableCodeEditor = ({ initialCode, language }: ExecutableCodeEditorPro
   const [code, setCode] = useState(initialCode);
   const [output, setOutput] = useState("");
   const [isExecuting, setIsExecuting] = useState(false);
+  const [pyodideLoading, setPyodideLoading] = useState(false);
+  const [pyodideReady, setPyodideReady] = useState(false);
+  const [pyodide, setPyodide] = useState<any>(null);
+
+  // Load Pyodide when needed for Python execution
+  useEffect(() => {
+    if (language.toLowerCase() === "python" && !pyodideReady && !pyodideLoading) {
+      const loadPyodide = async () => {
+        try {
+          setPyodideLoading(true);
+          // Load the Pyodide script
+          const script = document.createElement('script');
+          script.src = "https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js";
+          script.async = true;
+          
+          const loadPromise = new Promise<void>((resolve) => {
+            script.onload = () => resolve();
+          });
+          
+          document.body.appendChild(script);
+          await loadPromise;
+          
+          // Initialize Pyodide
+          // @ts-ignore - Pyodide is loaded globally
+          const pyodideInstance = await window.loadPyodide({
+            indexURL: "https://cdn.jsdelivr.net/pyodide/v0.24.1/full/",
+          });
+          
+          setPyodide(pyodideInstance);
+          setPyodideReady(true);
+          toast.success("Python interpreter loaded successfully");
+        } catch (error) {
+          console.error("Failed to load Pyodide:", error);
+          toast.error("Failed to load Python interpreter", {
+            description: "Please try again or switch to JavaScript"
+          });
+        } finally {
+          setPyodideLoading(false);
+        }
+      };
+      
+      loadPyodide();
+    }
+  }, [language, pyodideReady, pyodideLoading]);
 
   const executeJavaScript = (jsCode: string) => {
     try {
@@ -42,14 +86,27 @@ const ExecutableCodeEditor = ({ initialCode, language }: ExecutableCodeEditorPro
   };
 
   const executePython = async (pythonCode: string) => {
+    if (!pyodideReady || !pyodide) {
+      return "Python interpreter is not ready. Please wait for it to load.";
+    }
+    
     try {
-      setOutput("Python execution is simulated in this demo. In a production environment, this would connect to a backend service that runs Python code.");
-      toast.info("Python execution would require a backend service in production", {
-        description: "This is a demonstration of the UI only"
-      });
-      return "Python execution requires a backend service";
+      // Create a new namespace for the code execution
+      pyodide.runPython(`
+        import sys
+        import io
+        sys.stdout = io.StringIO()
+      `);
+      
+      // Run the Python code
+      pyodide.runPython(pythonCode);
+      
+      // Get the captured stdout
+      const output = pyodide.runPython("sys.stdout.getvalue()");
+      
+      return output || "Code executed successfully (no output)";
     } catch (error) {
-      return `Error: ${error.message}`;
+      return `Error: ${error.toString()}`;
     }
   };
 
@@ -64,6 +121,16 @@ const ExecutableCodeEditor = ({ initialCode, language }: ExecutableCodeEditorPro
         result = executeJavaScript(code);
         setOutput(result);
       } else if (language.toLowerCase() === "python") {
+        if (pyodideLoading) {
+          setOutput("Python interpreter is loading, please wait...");
+          return;
+        }
+        
+        if (!pyodideReady) {
+          setOutput("Python interpreter failed to load. Please refresh the page and try again.");
+          return;
+        }
+        
         result = await executePython(code);
         setOutput(result);
       } else {
@@ -88,11 +155,11 @@ const ExecutableCodeEditor = ({ initialCode, language }: ExecutableCodeEditorPro
       <div className="flex justify-between items-center">
         <Button 
           onClick={handleExecute} 
-          disabled={isExecuting}
+          disabled={isExecuting || (language.toLowerCase() === "python" && pyodideLoading)}
           className="flex items-center gap-2"
         >
           <Play size={16} />
-          {isExecuting ? "Running..." : "Run Code"}
+          {isExecuting ? "Running..." : pyodideLoading && language.toLowerCase() === "python" ? "Loading Python..." : "Run Code"}
         </Button>
         
         <span className="text-sm text-muted-foreground capitalize">
