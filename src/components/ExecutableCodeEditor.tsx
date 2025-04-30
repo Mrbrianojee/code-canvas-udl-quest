@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -27,6 +26,7 @@ const ExecutableCodeEditor = ({ initialCode, language }: ExecutableCodeEditorPro
   const [pyodideLoading, setPyodideLoading] = useState(false);
   const [pyodideReady, setPyodideReady] = useState(false);
   const [pyodide, setPyodide] = useState<any>(null);
+  const [showSolution, setShowSolution] = useState(false);
   const editorRef = useRef<HTMLPreElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -271,43 +271,46 @@ ${pythonCode}
             {isExecuting ? "Running..." : pyodideLoading && language.toLowerCase() === "python" ? "Loading Python..." : "Run Code"}
           </Button>
           
-          {/* Replace the direct "Show Solution" button with a Dialog */}
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline" disabled={isExecuting}>
-                Show Solution
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-2xl">
-              <DialogHeader>
-                <DialogTitle>Solution</DialogTitle>
-                <DialogDescription>
-                  View the solution without overwriting your code.
-                </DialogDescription>
-              </DialogHeader>
-              
-              <div className="mt-4 bg-zinc-950 text-zinc-100 p-4 rounded-md overflow-auto max-h-96">
-                <pre className="code-block">
-                  <code className={`language-${getPrismLanguage(language)}`}>
-                    {initialCode}
-                  </code>
-                </pre>
-              </div>
-              
-              <DialogFooter className="mt-4">
-                <Button variant="outline" onClick={copySolutionToClipboard} className="flex items-center gap-2">
-                  <Copy size={16} />
-                  Copy to clipboard
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+          <Button 
+            variant="outline" 
+            onClick={() => setShowSolution(!showSolution)}
+            disabled={isExecuting}
+          >
+            {showSolution ? "Hide Solution" : "Show Solution"}
+          </Button>
+          
+          {showSolution && (
+            <Button 
+              variant="ghost" 
+              onClick={copySolutionToClipboard}
+              className="flex items-center gap-2"
+            >
+              <Copy size={16} />
+              Copy Solution
+            </Button>
+          )}
         </div>
         
         <span className="text-sm text-muted-foreground capitalize">
           {language}
         </span>
       </div>
+      
+      {showSolution && (
+        <div className="mt-4">
+          <h4 className="text-md font-medium mb-2">Solution:</h4>
+          <div className="bg-zinc-950 text-zinc-100 p-4 rounded-md overflow-auto max-h-96">
+            <pre className="code-block">
+              <code className={`language-${getPrismLanguage(language)}`}>
+                {initialCode}
+              </code>
+            </pre>
+          </div>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Compare your solution with the provided one. Remember, there can be multiple valid approaches to solve a problem.
+          </p>
+        </div>
+      )}
       
       {output && (
         <div className="mt-4">
