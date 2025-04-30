@@ -65,15 +65,6 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
             </div>
           )}
         </div>
-
-        <div className="flex justify-between items-center border-t pt-4">
-          <Button 
-            onClick={() => setShowSolution(!showSolution)}
-            variant="outline"
-          >
-            {showSolution ? "Hide Solution" : "Show Solution"}
-          </Button>
-        </div>
         
         <div className="mt-4 space-y-4">
           <h3 className="text-lg font-medium">Interactive Code Editor</h3>
@@ -106,18 +97,16 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
             ))}
           </Tabs>
           
-          {showSolution && challenge.explanation && (
-            <div className="mt-4">
-              <h4 className="text-md font-medium mb-2">Explanation:</h4>
-              <div className="text-muted-foreground">
-                {challenge.explanation.split('\n').map((paragraph, index) => (
-                  <p key={index} className="mb-2">
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            </div>
-          )}
+          <div className="flex justify-end mt-4">
+            <Button 
+              onClick={() => setShowSolution(!showSolution)}
+              variant="outline"
+              className="text-sm"
+            >
+              {showSolution ? "Hide Solution" : "Show Solution"}
+            </Button>
+          </div>
+          
         </div>
       </CardContent>
       <CardFooter className="border-t pt-4 text-sm text-muted-foreground">
