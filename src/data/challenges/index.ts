@@ -20,5 +20,5 @@ export const getChallengesByDifficulty = (difficulty: string): Challenge[] => {
   return challenges.filter(challenge => challenge.difficulty === difficulty);
 };
 
-// Re-export the Challenge type
-export { Challenge } from "./types";
+// Re-export the Challenge type using 'export type'
+export type { Challenge } from "./types";
