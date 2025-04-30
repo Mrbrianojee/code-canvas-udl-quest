@@ -15,7 +15,7 @@ interface ChallengeViewProps {
 const ChallengeView = ({ challenge }: ChallengeViewProps) => {
   const [showSolution, setShowSolution] = useState(false);
   const [language, setLanguage] = useState<string>("javascript");
-  const [mode, setMode] = useState<"view" | "interactive">("view");
+  const [mode, setMode] = useState<"interactive">("interactive");
   const availableLanguages = Object.keys(challenge.solutions);
 
   // Determine if we need to show a special hint for the Word Search challenge
@@ -55,7 +55,7 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
             </div>
           )}
           
-          {isWordSearchChallenge && mode === "interactive" && (
+          {isWordSearchChallenge && (
             <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-md">
               <h4 className="text-md font-medium mb-1 text-amber-800">Hint for Interactive Mode:</h4>
               <p className="text-amber-700">
@@ -73,103 +73,52 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
           >
             {showSolution ? "Hide Solution" : "Show Solution"}
           </Button>
-          
-          <div className="flex gap-2">
-            <Button 
-              variant={mode === "view" ? "default" : "outline"}
-              onClick={() => setMode("view")}
-              size="sm"
-            >
-              View
-            </Button>
-            <Button 
-              variant={mode === "interactive" ? "default" : "outline"}
-              onClick={() => setMode("interactive")}
-              size="sm"
-            >
-              Interactive
-            </Button>
-          </div>
         </div>
         
-        {showSolution && mode === "view" && (
-          <div className="mt-4 space-y-4">
-            <h3 className="text-lg font-medium">Solution</h3>
-            
-            <Tabs 
-              value={language} 
-              onValueChange={setLanguage}
-              className="w-full"
-            >
-              <TabsList className="mb-2">
-                {availableLanguages.map(lang => (
-                  <TabsTrigger 
-                    key={lang} 
-                    value={lang}
-                    className="capitalize"
-                  >
-                    {lang}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-              
+        <div className="mt-4 space-y-4">
+          <h3 className="text-lg font-medium">Interactive Code Editor</h3>
+          
+          <Tabs 
+            value={language} 
+            onValueChange={setLanguage}
+            className="w-full"
+          >
+            <TabsList className="mb-2">
               {availableLanguages.map(lang => (
-                <TabsContent key={lang} value={lang} className="mt-0">
-                  <CodeBlock 
-                    code={challenge.solutions[lang]} 
-                    language={lang}
-                  />
-                </TabsContent>
+                <TabsTrigger 
+                  key={lang} 
+                  value={lang}
+                  className="capitalize"
+                >
+                  {lang}
+                </TabsTrigger>
               ))}
-            </Tabs>
+            </TabsList>
             
-            {challenge.explanation && (
-              <div className="mt-4">
-                <h4 className="text-md font-medium mb-2">Explanation:</h4>
-                <div className="text-muted-foreground">
-                  {challenge.explanation.split('\n').map((paragraph, index) => (
-                    <p key={index} className="mb-2">
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
+            {availableLanguages.map(lang => (
+              <TabsContent key={lang} value={lang} className="mt-0">
+                <ExecutableCodeEditor 
+                  initialCode={challenge.solutions[lang]}
+                  language={lang}
+                  showSolutionProp={showSolution}
+                />
+              </TabsContent>
+            ))}
+          </Tabs>
+          
+          {showSolution && challenge.explanation && (
+            <div className="mt-4">
+              <h4 className="text-md font-medium mb-2">Explanation:</h4>
+              <div className="text-muted-foreground">
+                {challenge.explanation.split('\n').map((paragraph, index) => (
+                  <p key={index} className="mb-2">
+                    {paragraph}
+                  </p>
+                ))}
               </div>
-            )}
-          </div>
-        )}
-        
-        {mode === "interactive" && (
-          <div className="mt-4 space-y-4">
-            <h3 className="text-lg font-medium">Interactive Code Editor</h3>
-            
-            <Tabs 
-              value={language} 
-              onValueChange={setLanguage}
-              className="w-full"
-            >
-              <TabsList className="mb-2">
-                {availableLanguages.map(lang => (
-                  <TabsTrigger 
-                    key={lang} 
-                    value={lang}
-                    className="capitalize"
-                  >
-                    {lang}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-              
-              {availableLanguages.map(lang => (
-                <TabsContent key={lang} value={lang} className="mt-0">
-                  <ExecutableCodeEditor 
-                    initialCode={challenge.solutions[lang]}
-                    language={lang}
-                  />
-                </TabsContent>
-              ))}
-            </Tabs>
-          </div>
-        )}
+            </div>
+          )}
+        </div>
       </CardContent>
       <CardFooter className="border-t pt-4 text-sm text-muted-foreground">
         <div className="flex justify-between w-full">

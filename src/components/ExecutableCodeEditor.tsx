@@ -3,22 +3,18 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Play, Copy } from "lucide-react";
 import Prism from "prismjs";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 
 interface ExecutableCodeEditorProps {
   initialCode: string;
   language: string;
+  showSolutionProp?: boolean;
 }
 
-const ExecutableCodeEditor = ({ initialCode, language }: ExecutableCodeEditorProps) => {
+const ExecutableCodeEditor = ({ 
+  initialCode, 
+  language,
+  showSolutionProp = false
+}: ExecutableCodeEditorProps) => {
   // Start with an empty code editor instead of showing the solution
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
@@ -26,7 +22,6 @@ const ExecutableCodeEditor = ({ initialCode, language }: ExecutableCodeEditorPro
   const [pyodideLoading, setPyodideLoading] = useState(false);
   const [pyodideReady, setPyodideReady] = useState(false);
   const [pyodide, setPyodide] = useState<any>(null);
-  const [showSolution, setShowSolution] = useState(false);
   const editorRef = useRef<HTMLPreElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -271,15 +266,7 @@ ${pythonCode}
             {isExecuting ? "Running..." : pyodideLoading && language.toLowerCase() === "python" ? "Loading Python..." : "Run Code"}
           </Button>
           
-          <Button 
-            variant="outline" 
-            onClick={() => setShowSolution(!showSolution)}
-            disabled={isExecuting}
-          >
-            {showSolution ? "Hide Solution" : "Show Solution"}
-          </Button>
-          
-          {showSolution && (
+          {showSolutionProp && (
             <Button 
               variant="ghost" 
               onClick={copySolutionToClipboard}
@@ -296,7 +283,7 @@ ${pythonCode}
         </span>
       </div>
       
-      {showSolution && (
+      {showSolutionProp && (
         <div className="mt-4">
           <h4 className="text-md font-medium mb-2">Solution:</h4>
           <div className="bg-zinc-950 text-zinc-100 p-4 rounded-md overflow-auto max-h-96">
