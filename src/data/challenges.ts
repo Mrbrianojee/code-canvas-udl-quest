@@ -1,3 +1,4 @@
+
 export interface Challenge {
   id: string;
   title: string;
@@ -92,7 +93,13 @@ print("Hello, World!")`
     categories: ["Conditionals", "Loops"],
     createdAt: "2023-04-16",
     timeComplexity: "O(n)",
-    explanation: "The solution iterates through numbers 1 to n, checking each number against our conditions.\n\nWe check for multiples of both 3 and 5 first (FizzBuzz), then for multiples of 3 (Fizz), then for multiples of 5 (Buzz). If none of these conditions are met, we print the number itself."
+    explanation: "The solution iterates through numbers 1 to n, checking each number against our conditions.\n\nWe check for multiples of both 3 and 5 first (FizzBuzz), then for multiples of 3 (Fizz), then for multiples of 5 (Buzz). If none of these conditions are met, we print the number itself.",
+    hints: [
+      "Start by creating a loop that counts from 1 to n.",
+      "Use the modulo operator (%) to check if a number is divisible by 3 or 5.",
+      "Remember to check for numbers that are multiples of both 3 and 5 first.",
+      "The order of your conditional checks matters!"
+    ]
   },
   {
     id: "palindrome",
@@ -121,7 +128,13 @@ print("Hello, World!")`
 isPalindrome("hello");    // returns false
 isPalindrome("A man, a plan, a canal: Panama");  // returns true`,
     timeComplexity: "O(n)",
-    explanation: "This solution first cleans the input string by removing non-alphanumeric characters and converting to lowercase.\n\nThen, we check if the cleaned string is equal to its reverse. If it is, the string is a palindrome."
+    explanation: "This solution first cleans the input string by removing non-alphanumeric characters and converting to lowercase.\n\nThen, we check if the cleaned string is equal to its reverse. If it is, the string is a palindrome.",
+    hints: [
+      "Start by cleaning the input string - remove spaces, punctuation, and convert all characters to lowercase.",
+      "In JavaScript, you can use regular expressions to remove unwanted characters.",
+      "The reverse of a string can be obtained by: 1) splitting it into an array of characters, 2) reversing the array, and 3) joining it back.",
+      "Compare the cleaned string with its reverse to determine if it's a palindrome."
+    ]
   },
   {
     id: "two-sum",
@@ -162,7 +175,13 @@ twoSum([3, 2, 4], 6);      // returns [1, 2]`,
     categories: ["Arrays", "Hash Tables"],
     createdAt: "2023-04-18",
     timeComplexity: "O(n)",
-    explanation: "This solution uses a hash map to store each number and its index as we iterate through the array.\n\nFor each number, we calculate its complement (the value needed to reach the target sum). If the complement exists in our map, we've found our pair and return their indices.\n\nThis approach is more efficient than a naive nested loop solution, which would be O(n²)."
+    explanation: "This solution uses a hash map to store each number and its index as we iterate through the array.\n\nFor each number, we calculate its complement (the value needed to reach the target sum). If the complement exists in our map, we've found our pair and return their indices.\n\nThis approach is more efficient than a naive nested loop solution, which would be O(n²).",
+    hints: [
+      "A naive approach would be to use two nested loops to check every pair of numbers, but this is inefficient (O(n²)).",
+      "Instead, use a hash map (object in JavaScript) to store numbers you've seen and their indices.",
+      "For each number, calculate what value you need to add to it to reach the target (complement = target - current number).",
+      "Check if that complement is already in your hash map. If it is, you've found your pair!"
+    ]
   },
   {
     id: "longest-substring",
@@ -216,7 +235,14 @@ lengthOfLongestSubstring("pwwkew");   // returns 3 (for "wke")`,
     categories: ["Strings", "Sliding Window", "Hash Tables"],
     createdAt: "2023-04-19",
     timeComplexity: "O(n)",
-    explanation: "This solution uses the sliding window technique with a hash map to track character positions.\n\nWe maintain two pointers, start and end, defining the current substring window. As we iterate through the string, we extend the window to the right.\n\nIf we encounter a character that's already in our window, we shrink the window from the left by moving the start pointer to just after the previous occurrence of the character.\n\nWe keep track of the maximum window size seen so far, which represents our answer."
+    explanation: "This solution uses the sliding window technique with a hash map to track character positions.\n\nWe maintain two pointers, start and end, defining the current substring window. As we iterate through the string, we extend the window to the right.\n\nIf we encounter a character that's already in our window, we shrink the window from the left by moving the start pointer to just after the previous occurrence of the character.\n\nWe keep track of the maximum window size seen so far, which represents our answer.",
+    hints: [
+      "Use the sliding window technique with two pointers to maintain your current window of non-repeating characters.",
+      "Keep track of the position of each character you've seen in a hash map.",
+      "When you encounter a repeated character, move your left pointer to the position after the previous occurrence.",
+      "Update the maximum length whenever you find a longer valid substring.",
+      "Remember to handle edge cases like empty strings or strings with all identical characters."
+    ]
   },
   {
     id: "merge-intervals",
@@ -276,7 +302,14 @@ mergeIntervals([[1,4],[4,5]]);            // returns [[1,5]]`,
     categories: ["Arrays", "Sorting"],
     createdAt: "2023-04-20",
     timeComplexity: "O(n log n)",
-    explanation: "The approach is to first sort the intervals by their start times. This ensures that overlapping intervals are adjacent in the sorted array.\n\nWe then iterate through the sorted intervals. For each interval, we check if it overlaps with the last interval in our result array. If it does, we merge them by updating the end time of the last interval. If not, we add the current interval to the result array.\n\nThe time complexity is O(n log n) due to the sorting operation."
+    explanation: "The approach is to first sort the intervals by their start times. This ensures that overlapping intervals are adjacent in the sorted array.\n\nWe then iterate through the sorted intervals. For each interval, we check if it overlaps with the last interval in our result array. If it does, we merge them by updating the end time of the last interval. If not, we add the current interval to the result array.\n\nThe time complexity is O(n log n) due to the sorting operation.",
+    hints: [
+      "Start by sorting the intervals based on their start times. This makes it easier to identify overlaps.",
+      "After sorting, compare each interval with the last one added to your result array.",
+      "Two intervals [a, b] and [c, d] overlap if c <= b (assuming a < b and c < d).",
+      "When merging overlapping intervals, the new interval becomes [min(a, c), max(b, d)], but since we've sorted by start time, it's just [a, max(b, d)].",
+      "If there's no overlap, simply add the current interval to your result."
+    ]
   },
   {
     id: "lru-cache",
@@ -362,7 +395,14 @@ cache.get(4);           // returns 4`,
     categories: ["Data Structures", "Design", "Hash Tables"],
     createdAt: "2023-04-21",
     timeComplexity: "O(1) for both get and put operations",
-    explanation: "This solution uses JavaScript's Map object (or a combination of dict and list in Python) to implement the LRU functionality.\n\nThe key insight is that we can use the Map's built-in order to implement the LRU functionality. When we access or insert an item, we delete it and re-add it to make it the most recently used.\n\nWhen we need to evict an item, we remove the first item in the Map (or list in Python), which is the least recently used item."
+    explanation: "This solution uses JavaScript's Map object (or a combination of dict and list in Python) to implement the LRU functionality.\n\nThe key insight is that we can use the Map's built-in order to implement the LRU functionality. When we access or insert an item, we delete it and re-add it to make it the most recently used.\n\nWhen we need to evict an item, we remove the first item in the Map (or list in Python), which is the least recently used item.",
+    hints: [
+      "In JavaScript, use a Map object to maintain insertion order of keys, which helps implement LRU behavior.",
+      "For the get operation, after retrieving a value, you need to mark it as recently used by removing and re-adding it.",
+      "For the put operation, first check if the key already exists. If it does, update it and mark it as recently used.",
+      "If the key doesn't exist and the cache is at capacity, remove the least recently used item (first item in your Map).",
+      "The JavaScript Map preserves insertion order, making the first item the oldest and the last item the most recent."
+    ]
   },
   {
     id: "word-search",
@@ -471,7 +511,15 @@ exist(board, "ABCB");    // returns false`,
     categories: ["DFS", "Backtracking", "Matrix"],
     createdAt: "2023-04-22",
     timeComplexity: "O(N * 4^L) where N is the number of cells and L is the length of the word",
-    explanation: "This solution uses a depth-first search (DFS) with backtracking to find the word in the grid.\n\nFor each cell in the grid, we start a DFS to check if it can form the word. In the DFS, we try all four directions (up, down, left, right) and mark visited cells to avoid revisiting them.\n\nIf any of the searches is successful, we've found the word. Otherwise, we return false."
+    explanation: "This solution uses a depth-first search (DFS) with backtracking to find the word in the grid.\n\nFor each cell in the grid, we start a DFS to check if it can form the word. In the DFS, we try all four directions (up, down, left, right) and mark visited cells to avoid revisiting them.\n\nIf any of the searches is successful, we've found the word. Otherwise, we return false.",
+    hints: [
+      "Use a depth-first search (DFS) approach with backtracking to explore all possible paths.",
+      "Start the search from each cell in the grid that matches the first character of the word.",
+      "During DFS, mark visited cells temporarily (e.g., change them to a special character) to avoid using the same cell twice.",
+      "Explore in all four directions (up, down, left, right) from each cell.",
+      "Remember to restore the original cell value after exploring all paths from that cell.",
+      "The time complexity can be high (exponential), as you might need to explore many paths."
+    ]
   }
 ];
 
