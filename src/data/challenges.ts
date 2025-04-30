@@ -12,6 +12,7 @@ export interface Challenge {
   categories: string[];
   timeComplexity?: string;
   createdAt: string;
+  hints?: string[];
 }
 
 export const challenges: Challenge[] = [
