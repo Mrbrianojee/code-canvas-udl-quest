@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -226,13 +227,14 @@ ${pythonCode}
           </code>
         </pre>
         
-        {/* Actual editable textarea */}
+        {/* Actual editable textarea - fixed for visibility */}
         <textarea
           ref={textareaRef}
           value={code}
           onChange={handleCodeChange}
           onKeyDown={handleKeyDown}
-          className="w-full h-80 p-4 font-mono resize-none bg-transparent text-white relative z-10"
+          className="w-full h-80 p-4 font-mono resize-none bg-transparent relative z-10"
+          style={{ color: "rgba(255, 255, 255, 0.8)" }} /* Inline style to ensure color is applied */
           placeholder={`Write your ${language} code here...`}
           spellCheck="false"
         />

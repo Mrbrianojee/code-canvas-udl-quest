@@ -108,11 +108,13 @@
     font-family: 'Fira Code', 'Menlo', monospace;
   }
   
-  /* Textarea for code editor */
-  .code-block textarea {
-    font-family: 'Fira Code', 'Menlo', monospace;
-    color: white !important;
-    opacity: 0.8;
+  /* Textarea for code editor - improved styling for better visibility */
+  .code-block + textarea,
+  textarea.code-input {
+    font-family: 'Fira Code', 'Menlo', monospace !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    caret-color: white !important;
+    background-color: transparent !important;
   }
   
   /* Custom styling for line numbers */
