@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -215,7 +214,7 @@ ${pythonCode}
 
   return (
     <div className="space-y-4 mt-4">
-      <div className="relative font-mono text-sm">
+      <div className="relative font-mono text-sm border rounded-md overflow-hidden">
         {/* Hidden syntax highlighted code */}
         <pre 
           ref={editorRef}
@@ -233,13 +232,9 @@ ${pythonCode}
           value={code}
           onChange={handleCodeChange}
           onKeyDown={handleKeyDown}
-          className="w-full h-80 p-4 bg-transparent text-zinc-100 caret-zinc-200 resize-none font-mono relative z-10"
+          className="w-full h-80 p-4 font-mono resize-none bg-transparent text-white relative z-10"
           placeholder={`Write your ${language} code here...`}
           spellCheck="false"
-          style={{ 
-            caretColor: 'white',
-            color: 'rgba(255, 255, 255, 0.6)'  // Semi-transparent text for better visibility
-          }}
         />
       </div>
       

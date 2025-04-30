@@ -111,6 +111,8 @@
   /* Textarea for code editor */
   .code-block textarea {
     font-family: 'Fira Code', 'Menlo', monospace;
+    color: white !important;
+    opacity: 0.8;
   }
   
   /* Custom styling for line numbers */
