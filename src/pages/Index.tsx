@@ -4,7 +4,7 @@ import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChallengeCard from "@/components/ChallengeCard";
-import { challenges, getChallengesByDifficulty } from "@/data/challenges";
+import { challenges, getChallengesByDifficulty } from "@/data/challenges/index";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Index = () => {

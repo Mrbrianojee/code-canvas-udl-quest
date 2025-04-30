@@ -1,7 +1,7 @@
 
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { getChallengeById } from "@/data/challenges";
+import { getChallengeById } from "@/data/challenges/index";
 import ChallengeView from "@/components/ChallengeView";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
