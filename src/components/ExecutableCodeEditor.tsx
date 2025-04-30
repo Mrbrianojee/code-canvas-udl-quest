@@ -2,8 +2,17 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Play } from "lucide-react";
+import { Play, Copy } from "lucide-react";
 import Prism from "prismjs";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface ExecutableCodeEditorProps {
   initialCode: string;
@@ -213,11 +222,15 @@ ${pythonCode}
     }
   };
 
+  // Copy solution to clipboard
+  const copySolutionToClipboard = () => {
+    navigator.clipboard.writeText(initialCode);
+    toast.success("Solution copied to clipboard");
+  };
+
   return (
     <div className="space-y-4 mt-4">
       <div className="relative border rounded-md overflow-hidden">
-        {/* The key is to use position relative on the container, and have the textarea as a normal element 
-            with proper styling, not absolute positioning which can cause issues */}
         <div className="relative bg-zinc-950 h-80 w-full">
           {/* The textarea MUST come before the pre element for proper stacking */}
           <textarea
@@ -258,13 +271,37 @@ ${pythonCode}
             {isExecuting ? "Running..." : pyodideLoading && language.toLowerCase() === "python" ? "Loading Python..." : "Run Code"}
           </Button>
           
-          <Button
-            variant="outline"
-            onClick={() => setCode(initialCode)}
-            disabled={isExecuting}
-          >
-            Show Solution
-          </Button>
+          {/* Replace the direct "Show Solution" button with a Dialog */}
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" disabled={isExecuting}>
+                Show Solution
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-2xl">
+              <DialogHeader>
+                <DialogTitle>Solution</DialogTitle>
+                <DialogDescription>
+                  View the solution without overwriting your code.
+                </DialogDescription>
+              </DialogHeader>
+              
+              <div className="mt-4 bg-zinc-950 text-zinc-100 p-4 rounded-md overflow-auto max-h-96">
+                <pre className="code-block">
+                  <code className={`language-${getPrismLanguage(language)}`}>
+                    {initialCode}
+                  </code>
+                </pre>
+              </div>
+              
+              <DialogFooter className="mt-4">
+                <Button variant="outline" onClick={copySolutionToClipboard} className="flex items-center gap-2">
+                  <Copy size={16} />
+                  Copy to clipboard
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
         
         <span className="text-sm text-muted-foreground capitalize">
