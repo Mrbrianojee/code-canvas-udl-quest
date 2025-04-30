@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Challenge } from "@/data/challenges";
 import DifficultyBadge from "./DifficultyBadge";
 import CodeBlock from "./CodeBlock";
+import ExecutableCodeEditor from "./ExecutableCodeEditor";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 interface ChallengeViewProps {
@@ -14,6 +15,7 @@ interface ChallengeViewProps {
 const ChallengeView = ({ challenge }: ChallengeViewProps) => {
   const [showSolution, setShowSolution] = useState(false);
   const [language, setLanguage] = useState<string>("javascript");
+  const [mode, setMode] = useState<"view" | "interactive">("view");
   const availableLanguages = Object.keys(challenge.solutions);
 
   return (
@@ -51,61 +53,110 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
           )}
         </div>
 
-        <div className="pt-4">
+        <div className="flex justify-between items-center border-t pt-4">
           <Button 
             onClick={() => setShowSolution(!showSolution)}
             variant="outline"
-            className="w-full"
           >
             {showSolution ? "Hide Solution" : "Show Solution"}
           </Button>
           
-          {showSolution && (
-            <div className="mt-4 space-y-4">
-              <h3 className="text-lg font-medium">Solution</h3>
-              
-              <Tabs 
-                value={language} 
-                onValueChange={setLanguage}
-                className="w-full"
-              >
-                <TabsList className="mb-2">
-                  {availableLanguages.map(lang => (
-                    <TabsTrigger 
-                      key={lang} 
-                      value={lang}
-                      className="capitalize"
-                    >
-                      {lang}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
-                
-                {availableLanguages.map(lang => (
-                  <TabsContent key={lang} value={lang} className="mt-0">
-                    <CodeBlock 
-                      code={challenge.solutions[lang]} 
-                      language={lang}
-                    />
-                  </TabsContent>
-                ))}
-              </Tabs>
-              
-              {challenge.explanation && (
-                <div className="mt-4">
-                  <h4 className="text-md font-medium mb-2">Explanation:</h4>
-                  <div className="text-muted-foreground">
-                    {challenge.explanation.split('\n').map((paragraph, index) => (
-                      <p key={index} className="mb-2">
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
+          <div className="flex gap-2">
+            <Button 
+              variant={mode === "view" ? "default" : "outline"}
+              onClick={() => setMode("view")}
+              size="sm"
+            >
+              View
+            </Button>
+            <Button 
+              variant={mode === "interactive" ? "default" : "outline"}
+              onClick={() => setMode("interactive")}
+              size="sm"
+            >
+              Interactive
+            </Button>
+          </div>
         </div>
+        
+        {showSolution && mode === "view" && (
+          <div className="mt-4 space-y-4">
+            <h3 className="text-lg font-medium">Solution</h3>
+            
+            <Tabs 
+              value={language} 
+              onValueChange={setLanguage}
+              className="w-full"
+            >
+              <TabsList className="mb-2">
+                {availableLanguages.map(lang => (
+                  <TabsTrigger 
+                    key={lang} 
+                    value={lang}
+                    className="capitalize"
+                  >
+                    {lang}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              
+              {availableLanguages.map(lang => (
+                <TabsContent key={lang} value={lang} className="mt-0">
+                  <CodeBlock 
+                    code={challenge.solutions[lang]} 
+                    language={lang}
+                  />
+                </TabsContent>
+              ))}
+            </Tabs>
+            
+            {challenge.explanation && (
+              <div className="mt-4">
+                <h4 className="text-md font-medium mb-2">Explanation:</h4>
+                <div className="text-muted-foreground">
+                  {challenge.explanation.split('\n').map((paragraph, index) => (
+                    <p key={index} className="mb-2">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        
+        {mode === "interactive" && (
+          <div className="mt-4 space-y-4">
+            <h3 className="text-lg font-medium">Interactive Code Editor</h3>
+            
+            <Tabs 
+              value={language} 
+              onValueChange={setLanguage}
+              className="w-full"
+            >
+              <TabsList className="mb-2">
+                {availableLanguages.map(lang => (
+                  <TabsTrigger 
+                    key={lang} 
+                    value={lang}
+                    className="capitalize"
+                  >
+                    {lang}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+              
+              {availableLanguages.map(lang => (
+                <TabsContent key={lang} value={lang} className="mt-0">
+                  <ExecutableCodeEditor 
+                    initialCode={challenge.solutions[lang]}
+                    language={lang}
+                  />
+                </TabsContent>
+              ))}
+            </Tabs>
+          </div>
+        )}
       </CardContent>
       <CardFooter className="border-t pt-4 text-sm text-muted-foreground">
         <div className="flex justify-between w-full">
