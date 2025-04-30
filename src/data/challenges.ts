@@ -720,4 +720,24 @@ areAnagrams("rail safety", "fairy tales");  // returns true`,
     createdAt: "2023-05-03",
     example: `isValid("()");        // returns true
 isValid("()[]{}");    // returns true
-isValid("(]");
+isValid("(]");        // returns false`,
+    timeComplexity: "O(n)",
+    explanation: "This solution uses a stack data structure to track opening brackets and ensure they're properly matched with closing brackets.\n\nAs we iterate through the string, we push the expected closing bracket onto the stack whenever we encounter an opening bracket. When we encounter a closing bracket, we check if it matches the most recent expected closing bracket (top of the stack).\n\nIf at any point a closing bracket doesn't match the expected one, or if we have closing brackets with no matching opening brackets, the string is invalid.",
+    hints: [
+      "Use a stack data structure to keep track of opening brackets.",
+      "When you encounter an opening bracket, push its corresponding closing bracket onto the stack.",
+      "When you encounter a closing bracket, check if it matches the top element on the stack.",
+      "At the end, the stack should be empty if all brackets were properly matched.",
+      "Handle edge cases like empty strings or strings with only opening or only closing brackets."
+    ]
+  }
+]
+
+// Helper functions
+export const getChallengeById = (id: string): Challenge | undefined => {
+  return challenges.find(challenge => challenge.id === id);
+};
+
+export const getChallengesByDifficulty = (difficulty: string): Challenge[] => {
+  return challenges.filter(challenge => challenge.difficulty === difficulty);
+};
