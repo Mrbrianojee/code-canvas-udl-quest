@@ -92,6 +92,25 @@ const ExecutableCodeEditor = ({ initialCode, language }: ExecutableCodeEditorPro
     }
     
     try {
+      // Add the example board for the Word Search challenge if the code is for that challenge
+      let codeToRun = pythonCode;
+      
+      // Check if this looks like the Word Search challenge code and doesn't already define a board
+      if (pythonCode.includes("def exist(board, word):") && 
+          !pythonCode.includes("board = [")) {
+        // Add the example board from the challenge
+        codeToRun = `
+# Example board from the challenge
+board = [
+  ['A','B','C','E'],
+  ['S','F','C','S'],
+  ['A','D','E','E']
+]
+
+${pythonCode}
+`;
+      }
+      
       // Create a new namespace for the code execution
       pyodide.runPython(`
         import sys
@@ -100,7 +119,7 @@ const ExecutableCodeEditor = ({ initialCode, language }: ExecutableCodeEditorPro
       `);
       
       // Run the Python code
-      pyodide.runPython(pythonCode);
+      pyodide.runPython(codeToRun);
       
       // Get the captured stdout
       const output = pyodide.runPython("sys.stdout.getvalue()");

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,6 +17,9 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
   const [language, setLanguage] = useState<string>("javascript");
   const [mode, setMode] = useState<"view" | "interactive">("view");
   const availableLanguages = Object.keys(challenge.solutions);
+
+  // Determine if we need to show a special hint for the Word Search challenge
+  const isWordSearchChallenge = challenge.id === "word-search";
 
   return (
     <Card className="w-full max-w-4xl mx-auto">
@@ -48,6 +52,16 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
             <div className="mt-4">
               <h4 className="text-md font-medium mb-2">Example:</h4>
               <CodeBlock code={challenge.example} />
+            </div>
+          )}
+          
+          {isWordSearchChallenge && mode === "interactive" && (
+            <div className="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-md">
+              <h4 className="text-md font-medium mb-1 text-amber-800">Hint for Interactive Mode:</h4>
+              <p className="text-amber-700">
+                For this challenge, the example board will be automatically added when you run the code. 
+                You only need to implement the <code className="bg-amber-100 px-1 py-0.5 rounded">exist()</code> function.
+              </p>
             </div>
           )}
         </div>
