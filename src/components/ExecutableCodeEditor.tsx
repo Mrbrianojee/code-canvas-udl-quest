@@ -11,7 +11,8 @@ interface ExecutableCodeEditorProps {
 }
 
 const ExecutableCodeEditor = ({ initialCode, language }: ExecutableCodeEditorProps) => {
-  const [code, setCode] = useState(initialCode);
+  // Start with an empty code editor instead of showing the solution
+  const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [isExecuting, setIsExecuting] = useState(false);
   const [pyodideLoading, setPyodideLoading] = useState(false);
@@ -153,14 +154,24 @@ const ExecutableCodeEditor = ({ initialCode, language }: ExecutableCodeEditorPro
       />
       
       <div className="flex justify-between items-center">
-        <Button 
-          onClick={handleExecute} 
-          disabled={isExecuting || (language.toLowerCase() === "python" && pyodideLoading)}
-          className="flex items-center gap-2"
-        >
-          <Play size={16} />
-          {isExecuting ? "Running..." : pyodideLoading && language.toLowerCase() === "python" ? "Loading Python..." : "Run Code"}
-        </Button>
+        <div className="flex gap-2">
+          <Button 
+            onClick={handleExecute} 
+            disabled={isExecuting || (language.toLowerCase() === "python" && pyodideLoading)}
+            className="flex items-center gap-2"
+          >
+            <Play size={16} />
+            {isExecuting ? "Running..." : pyodideLoading && language.toLowerCase() === "python" ? "Loading Python..." : "Run Code"}
+          </Button>
+          
+          <Button
+            variant="outline"
+            onClick={() => setCode(initialCode)}
+            disabled={isExecuting}
+          >
+            Show Solution
+          </Button>
+        </div>
         
         <span className="text-sm text-muted-foreground capitalize">
           {language}
