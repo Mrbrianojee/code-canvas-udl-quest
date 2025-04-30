@@ -1,6 +1,6 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Play } from "lucide-react";
 import Prism from "prismjs";
@@ -233,10 +233,13 @@ ${pythonCode}
           value={code}
           onChange={handleCodeChange}
           onKeyDown={handleKeyDown}
-          className="w-full h-80 p-4 bg-transparent text-transparent caret-zinc-200 resize-none font-mono"
+          className="w-full h-80 p-4 bg-transparent text-zinc-100 caret-zinc-200 resize-none font-mono relative z-10"
           placeholder={`Write your ${language} code here...`}
           spellCheck="false"
-          style={{ caretColor: 'white' }}
+          style={{ 
+            caretColor: 'white',
+            color: 'rgba(255, 255, 255, 0.6)'  // Semi-transparent text for better visibility
+          }}
         />
       </div>
       
