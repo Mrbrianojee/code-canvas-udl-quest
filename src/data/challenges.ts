@@ -4,7 +4,9 @@ export interface Challenge {
   title: string;
   description: string;
   difficulty: "easy" | "medium" | "hard";
-  solution: string;
+  solutions: {
+    [language: string]: string;
+  };
   example?: string;
   explanation?: string;
   categories: string[];
@@ -18,28 +20,18 @@ export const challenges: Challenge[] = [
     title: "Hello World Variations",
     description: "Write a function that prints 'Hello, World!' to the console in different programming languages.\n\nThis is a classic starting point for learning a new programming language.",
     difficulty: "easy",
-    solution: `// JavaScript
+    solutions: {
+      javascript: `// JavaScript
 function helloWorld() {
   console.log("Hello, World!");
-}
-
-// Python 
+}`,
+      python: `# Python 
 def hello_world():
     print("Hello, World!")
 
-// Java
-public class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-
-// C++
-#include <iostream>
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
-}`,
+# Python (one-liner)
+print("Hello, World!")`
+    },
     categories: ["Fundamentals", "Syntax"],
     createdAt: "2023-04-15",
     example: `helloWorld(); // Output: Hello, World!`,
@@ -50,7 +42,8 @@ int main() {
     title: "FizzBuzz",
     description: "Write a function that prints numbers from 1 to n. For multiples of 3, print 'Fizz' instead of the number. For multiples of 5, print 'Buzz'. For numbers that are multiples of both 3 and 5, print 'FizzBuzz'.\n\nThis is a classic coding interview question that tests your understanding of conditional logic and loops.",
     difficulty: "easy",
-    solution: `function fizzBuzz(n) {
+    solutions: {
+      javascript: `function fizzBuzz(n) {
   for (let i = 1; i <= n; i++) {
     if (i % 3 === 0 && i % 5 === 0) {
       console.log("FizzBuzz");
@@ -63,6 +56,17 @@ int main() {
     }
   }
 }`,
+      python: `def fizzbuzz(n):
+    for i in range(1, n + 1):
+        if i % 3 == 0 and i % 5 == 0:
+            print("FizzBuzz")
+        elif i % 3 == 0:
+            print("Fizz")
+        elif i % 5 == 0:
+            print("Buzz")
+        else:
+            print(i)`
+    },
     example: `fizzBuzz(15);
 // Output:
 // 1
@@ -90,13 +94,22 @@ int main() {
     title: "Palindrome Checker",
     description: "Write a function that checks if a given string is a palindrome.\n\nA palindrome is a string that reads the same backward as forward, ignoring case, punctuation, and spaces.",
     difficulty: "easy",
-    solution: `function isPalindrome(str) {
+    solutions: {
+      javascript: `function isPalindrome(str) {
   // Remove non-alphanumeric characters and convert to lowercase
   const cleanStr = str.toLowerCase().replace(/[^a-z0-9]/g, '');
   
   // Compare the string with its reverse
   return cleanStr === cleanStr.split('').reverse().join('');
 }`,
+      python: `def is_palindrome(s):
+    # Remove non-alphanumeric characters and convert to lowercase
+    import re
+    clean_str = re.sub(r'[^a-z0-9]', '', s.lower())
+    
+    # Compare the string with its reverse
+    return clean_str == clean_str[::-1]`
+    },
     categories: ["Strings", "Algorithms"],
     createdAt: "2023-04-17",
     example: `isPalindrome("racecar");  // returns true
@@ -110,7 +123,8 @@ isPalindrome("A man, a plan, a canal: Panama");  // returns true`,
     title: "Two Sum",
     description: "Given an array of integers and a target sum, return the indices of the two numbers such that they add up to the target.\n\nAssume each input would have exactly one solution, and you cannot use the same element twice.",
     difficulty: "medium",
-    solution: `function twoSum(nums, target) {
+    solutions: {
+      javascript: `function twoSum(nums, target) {
   const map = new Map();
   
   for (let i = 0; i < nums.length; i++) {
@@ -125,6 +139,19 @@ isPalindrome("A man, a plan, a canal: Panama");  // returns true`,
   
   return null; // No solution found
 }`,
+      python: `def two_sum(nums, target):
+    num_map = {}
+    
+    for i, num in enumerate(nums):
+        complement = target - num
+        
+        if complement in num_map:
+            return [num_map[complement], i]
+            
+        num_map[num] = i
+    
+    return None  # No solution found`
+    },
     example: `twoSum([2, 7, 11, 15], 9);  // returns [0, 1]
 twoSum([3, 2, 4], 6);      // returns [1, 2]`,
     categories: ["Arrays", "Hash Tables"],
@@ -137,7 +164,8 @@ twoSum([3, 2, 4], 6);      // returns [1, 2]`,
     title: "Longest Substring Without Repeating Characters",
     description: "Given a string, find the length of the longest substring without repeating characters.\n\nA substring is a contiguous sequence of characters within a string.",
     difficulty: "medium",
-    solution: `function lengthOfLongestSubstring(s) {
+    solutions: {
+      javascript: `function lengthOfLongestSubstring(s) {
   let maxLength = 0;
   let start = 0;
   const charMap = new Map();
@@ -159,6 +187,24 @@ twoSum([3, 2, 4], 6);      // returns [1, 2]`,
   
   return maxLength;
 }`,
+      python: `def length_of_longest_substring(s):
+    max_length = 0
+    start = 0
+    char_map = {}
+    
+    for end, char in enumerate(s):
+        # If the character is already in our current window, update the start pointer
+        if char in char_map and char_map[char] >= start:
+            start = char_map[char] + 1
+        
+        # Update the character's position
+        char_map[char] = end
+        
+        # Update max length if current window is larger
+        max_length = max(max_length, end - start + 1)
+    
+    return max_length`
+    },
     example: `lengthOfLongestSubstring("abcabcbb");  // returns 3 (for "abc")
 lengthOfLongestSubstring("bbbbb");    // returns 1 (for "b")
 lengthOfLongestSubstring("pwwkew");   // returns 3 (for "wke")`,
@@ -172,7 +218,8 @@ lengthOfLongestSubstring("pwwkew");   // returns 3 (for "wke")`,
     title: "Merge Intervals",
     description: "Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.\n\nIntervals are considered to overlap if they share at least one common point.",
     difficulty: "medium",
-    solution: `function mergeIntervals(intervals) {
+    solutions: {
+      javascript: `function mergeIntervals(intervals) {
   if (intervals.length <= 1) {
     return intervals;
   }
@@ -197,6 +244,28 @@ lengthOfLongestSubstring("pwwkew");   // returns 3 (for "wke")`,
   
   return result;
 }`,
+      python: `def merge_intervals(intervals):
+    if len(intervals) <= 1:
+        return intervals
+    
+    # Sort intervals by start time
+    intervals.sort(key=lambda x: x[0])
+    
+    result = [intervals[0]]
+    
+    for i in range(1, len(intervals)):
+        current_interval = intervals[i]
+        last_merged_interval = result[-1]
+        
+        # If current interval overlaps with the last merged interval, merge them
+        if current_interval[0] <= last_merged_interval[1]:
+            last_merged_interval[1] = max(last_merged_interval[1], current_interval[1])
+        else:
+            # Add the current interval to the result
+            result.append(current_interval)
+    
+    return result`
+    },
     example: `mergeIntervals([[1,3],[2,6],[8,10],[15,18]]);  // returns [[1,6],[8,10],[15,18]]
 mergeIntervals([[1,4],[4,5]]);            // returns [[1,5]]`,
     categories: ["Arrays", "Sorting"],
@@ -209,7 +278,8 @@ mergeIntervals([[1,4],[4,5]]);            // returns [[1,5]]`,
     title: "LRU Cache",
     description: "Design and implement a data structure for a Least Recently Used (LRU) cache. It should support operations get and put.\n\nget(key) - Get the value of the key if the key exists in the cache, otherwise return -1.\nput(key, value) - Set or insert the value if the key is not already present. When the cache reaches its capacity, it should invalidate the least recently used item before inserting a new item.",
     difficulty: "hard",
-    solution: `class LRUCache {
+    solutions: {
+      javascript: `class LRUCache {
   constructor(capacity) {
     this.capacity = capacity;
     this.cache = new Map();
@@ -245,6 +315,35 @@ mergeIntervals([[1,4],[4,5]]);            // returns [[1,5]]`,
     this.cache.set(key, value);
   }
 }`,
+      python: `class LRUCache:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.cache = {}
+        self.order = []  # To track order of usage
+    
+    def get(self, key):
+        if key not in self.cache:
+            return -1
+        
+        # Mark as recently used by moving to the end
+        self.order.remove(key)
+        self.order.append(key)
+        
+        return self.cache[key]
+    
+    def put(self, key, value):
+        # If key exists, remove it first
+        if key in self.cache:
+            self.order.remove(key)
+        # If at capacity, remove the least recently used item
+        elif len(self.cache) >= self.capacity:
+            lru_key = self.order.pop(0)  # Remove from front (least recently used)
+            del self.cache[lru_key]
+        
+        # Add the new key-value pair
+        self.cache[key] = value
+        self.order.append(key)  # Add to end (most recently used)`
+    },
     example: `const cache = new LRUCache(2);
 cache.put(1, 1);        // cache is {1=1}
 cache.put(2, 2);        // cache is {1=1, 2=2}
@@ -258,14 +357,15 @@ cache.get(4);           // returns 4`,
     categories: ["Data Structures", "Design", "Hash Tables"],
     createdAt: "2023-04-21",
     timeComplexity: "O(1) for both get and put operations",
-    explanation: "This solution uses JavaScript's Map object, which maintains insertion order and gives us O(1) access, insertion, and deletion.\n\nThe key insight is that we can use the Map's built-in order to implement the LRU functionality. When we access or insert an item, we delete it and re-add it to make it the most recently used.\n\nWhen we need to evict an item, we remove the first item in the Map, which is the least recently used item."
+    explanation: "This solution uses JavaScript's Map object (or a combination of dict and list in Python) to implement the LRU functionality.\n\nThe key insight is that we can use the Map's built-in order to implement the LRU functionality. When we access or insert an item, we delete it and re-add it to make it the most recently used.\n\nWhen we need to evict an item, we remove the first item in the Map (or list in Python), which is the least recently used item."
   },
   {
     id: "word-search",
     title: "Word Search",
     description: "Given a 2D board of characters and a word, find if the word exists in the grid.\n\nThe word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.",
     difficulty: "hard",
-    solution: `function exist(board, word) {
+    solutions: {
+      javascript: `function exist(board, word) {
   if (!board.length || !board[0].length) return false;
   
   const rows = board.length;
@@ -313,6 +413,47 @@ cache.get(4);           // returns 4`,
   
   return false;
 }`,
+      python: `def exist(board, word):
+    if not board or not board[0]:
+        return False
+    
+    rows, cols = len(board), len(board[0])
+    
+    # DFS to check if current position leads to the word
+    def dfs(row, col, index):
+        # Base case: if index equals word length, we found the word
+        if index == len(word):
+            return True
+        
+        # Out of bounds or current cell doesn't match
+        if (row < 0 or col < 0 or 
+            row >= rows or col >= cols or 
+            board[row][col] != word[index]):
+            return False
+        
+        # Mark as visited by changing the character temporarily
+        temp = board[row][col]
+        board[row][col] = '#'
+        
+        # Check all four adjacent cells
+        found = (dfs(row + 1, col, index + 1) or
+                dfs(row - 1, col, index + 1) or
+                dfs(row, col + 1, index + 1) or
+                dfs(row, col - 1, index + 1))
+        
+        # Restore the cell
+        board[row][col] = temp
+        
+        return found
+    
+    # Start DFS from each cell
+    for row in range(rows):
+        for col in range(cols):
+            if dfs(row, col, 0):
+                return True
+    
+    return False`
+    },
     example: `const board = [
   ['A','B','C','E'],
   ['S','F','C','S'],

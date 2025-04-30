@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Challenge } from "@/data/challenges";
 import DifficultyBadge from "./DifficultyBadge";
 import CodeBlock from "./CodeBlock";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 interface ChallengeViewProps {
   challenge: Challenge;
@@ -12,6 +13,8 @@ interface ChallengeViewProps {
 
 const ChallengeView = ({ challenge }: ChallengeViewProps) => {
   const [showSolution, setShowSolution] = useState(false);
+  const [language, setLanguage] = useState<string>("javascript");
+  const availableLanguages = Object.keys(challenge.solutions);
 
   return (
     <Card className="w-full max-w-4xl mx-auto">
@@ -60,7 +63,33 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
           {showSolution && (
             <div className="mt-4 space-y-4">
               <h3 className="text-lg font-medium">Solution</h3>
-              <CodeBlock code={challenge.solution} />
+              
+              <Tabs 
+                value={language} 
+                onValueChange={setLanguage}
+                className="w-full"
+              >
+                <TabsList className="mb-2">
+                  {availableLanguages.map(lang => (
+                    <TabsTrigger 
+                      key={lang} 
+                      value={lang}
+                      className="capitalize"
+                    >
+                      {lang}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+                
+                {availableLanguages.map(lang => (
+                  <TabsContent key={lang} value={lang} className="mt-0">
+                    <CodeBlock 
+                      code={challenge.solutions[lang]} 
+                      language={lang}
+                    />
+                  </TabsContent>
+                ))}
+              </Tabs>
               
               {challenge.explanation && (
                 <div className="mt-4">
