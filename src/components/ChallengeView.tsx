@@ -14,6 +14,7 @@ interface ChallengeViewProps {
 
 const ChallengeView = ({ challenge }: ChallengeViewProps) => {
   const [showSolution, setShowSolution] = useState(false);
+  const [showHints, setShowHints] = useState(false);
   const [language, setLanguage] = useState<string>("javascript");
   const [mode, setMode] = useState<"interactive">("interactive");
   const availableLanguages = Object.keys(challenge.solutions);
@@ -62,6 +63,36 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
                 For this challenge, the example board will be automatically added when you run the code. 
                 You only need to implement the <code className="bg-amber-100 px-1 py-0.5 rounded">exist()</code> function.
               </p>
+            </div>
+          )}
+
+          {challenge.hints && challenge.hints.length > 0 && (
+            <div className="mt-4">
+              <div className="flex items-center justify-between">
+                <h4 className="text-md font-medium">Hints:</h4>
+                <Button 
+                  onClick={() => setShowHints(!showHints)} 
+                  variant="outline" 
+                  size="sm" 
+                  className="text-xs"
+                >
+                  {showHints ? "Hide Hints" : "Show Hints"}
+                </Button>
+              </div>
+              
+              {showHints && (
+                <div className="mt-2 space-y-2">
+                  {challenge.hints.map((hint, index) => (
+                    <div 
+                      key={index} 
+                      className="p-3 bg-blue-50 border border-blue-200 rounded-md"
+                    >
+                      <p className="text-blue-800 font-medium text-sm mb-1">Hint {index + 1}:</p>
+                      <p className="text-blue-700 text-sm">{hint}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
