@@ -7,6 +7,8 @@ import DifficultyBadge from "./DifficultyBadge";
 import CodeBlock from "./CodeBlock";
 import ExecutableCodeEditor from "./ExecutableCodeEditor";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface ChallengeViewProps {
   challenge: Challenge;
@@ -15,12 +17,24 @@ interface ChallengeViewProps {
 const ChallengeView = ({ challenge }: ChallengeViewProps) => {
   const [showSolution, setShowSolution] = useState(false);
   const [showHints, setShowHints] = useState(false);
+  const [visibleHints, setVisibleHints] = useState<number>(0);
   const [language, setLanguage] = useState<string>("javascript");
   const [mode, setMode] = useState<"interactive">("interactive");
   const availableLanguages = Object.keys(challenge.solutions);
 
   // Determine if we need to show a special hint for the Word Search challenge
   const isWordSearchChallenge = challenge.id === "word-search";
+
+  const showNextHint = () => {
+    if (challenge.hints && visibleHints < challenge.hints.length) {
+      setVisibleHints(visibleHints + 1);
+    }
+  };
+
+  const resetHints = () => {
+    setVisibleHints(0);
+    setShowHints(false);
+  };
 
   return (
     <Card className="w-full max-w-4xl mx-auto">
@@ -70,19 +84,31 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
             <div className="mt-4">
               <div className="flex items-center justify-between">
                 <h4 className="text-md font-medium">Hints:</h4>
-                <Button 
-                  onClick={() => setShowHints(!showHints)} 
-                  variant="outline" 
-                  size="sm" 
-                  className="text-xs"
-                >
-                  {showHints ? "Hide Hints" : "Show Hints"}
-                </Button>
+                <div className="flex gap-2">
+                  {showHints && visibleHints > 0 && (
+                    <Button 
+                      onClick={resetHints} 
+                      variant="outline" 
+                      size="sm" 
+                      className="text-xs"
+                    >
+                      Reset Hints
+                    </Button>
+                  )}
+                  <Button 
+                    onClick={() => setShowHints(!showHints)} 
+                    variant="outline" 
+                    size="sm" 
+                    className="text-xs"
+                  >
+                    {showHints ? "Hide Hints" : "Show Hints"}
+                  </Button>
+                </div>
               </div>
               
               {showHints && (
                 <div className="mt-2 space-y-2">
-                  {challenge.hints.map((hint, index) => (
+                  {challenge.hints.slice(0, visibleHints).map((hint, index) => (
                     <div 
                       key={index} 
                       className="p-3 bg-blue-50 border border-blue-200 rounded-md"
@@ -91,6 +117,17 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
                       <p className="text-blue-700 text-sm">{hint}</p>
                     </div>
                   ))}
+                  
+                  {visibleHints < challenge.hints.length && (
+                    <Button
+                      onClick={showNextHint}
+                      variant="ghost"
+                      size="sm"
+                      className="w-full border border-dashed border-blue-200 text-blue-600 hover:bg-blue-50 py-2 mt-2"
+                    >
+                      Show Next Hint ({visibleHints + 1} of {challenge.hints.length})
+                    </Button>
+                  )}
                 </div>
               )}
             </div>
