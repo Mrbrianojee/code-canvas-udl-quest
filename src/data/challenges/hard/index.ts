@@ -4,6 +4,7 @@ import { wordSearchChallenge } from './word-search';
 import { trappingRainWaterChallenge } from './trapping-rain-water';
 import { medianOfTwoArraysChallenge } from './median-of-two-arrays';
 import { wordLadderChallenge } from './word-ladder';
+import { slidingWindowMaximumChallenge } from './sliding-window-maximum';
 import { Challenge } from '../types';
 
 // Export all hard challenges as an array
@@ -12,5 +13,6 @@ export const hardChallenges: Challenge[] = [
   wordSearchChallenge,
   trappingRainWaterChallenge,
   medianOfTwoArraysChallenge,
-  wordLadderChallenge
+  wordLadderChallenge,
+  slidingWindowMaximumChallenge
 ];
