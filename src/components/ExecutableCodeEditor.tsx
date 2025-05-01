@@ -27,17 +27,17 @@ const ExecutableCodeEditor = ({
   language,
   showSolutionProp = false
 }: ExecutableCodeEditorProps) => {
-  // Start with the initial code as a starting point for the editor
-  const [code, setCode] = useState(initialCode || "");
+  // Start with empty code instead of initialCode
+  const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [isExecuting, setIsExecuting] = useState(false);
   
   const isPythonLanguage = language.toLowerCase() === "python";
   const { pyodide, pyodideReady, pyodideLoading } = usePyodide(isPythonLanguage);
 
-  // Initialize with initialCode when language changes
+  // Reset to empty code when language changes, not initialCode
   useEffect(() => {
-    setCode(initialCode || "");
+    setCode("");
     
     // Ensure Prism is ready for the new language
     setTimeout(() => {
@@ -47,7 +47,7 @@ const ExecutableCodeEditor = ({
         console.error("Error highlighting after language change:", error);
       }
     }, 50);
-  }, [language, initialCode]);
+  }, [language]);
 
   const handleExecute = async () => {
     setIsExecuting(true);
@@ -114,7 +114,8 @@ const ExecutableCodeEditor = ({
   // Copy solution to clipboard
   const copySolutionToClipboard = () => {
     navigator.clipboard.writeText(initialCode);
-    toast.success("Solution copied to clipboard");
+    setCode(initialCode);
+    toast.success("Solution copied to clipboard and applied to editor");
   };
 
   return (
