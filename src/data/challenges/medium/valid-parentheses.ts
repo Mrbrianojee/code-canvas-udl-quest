@@ -66,5 +66,18 @@ isValid("(]");        // returns false`,
     "When you encounter a closing bracket, check if it matches the top of the stack.",
     "If the stack is empty at the end, the string is valid.",
     "Consider edge cases like an empty string or a string with only one bracket."
+  ],
+  steps: [
+    "Create a function that takes a string containing brackets",
+    "Initialize an empty stack (array) to keep track of opening brackets",
+    "Create a mapping from opening brackets to their corresponding closing brackets",
+    "Iterate through each character in the input string",
+    "If the character is an opening bracket, push its corresponding closing bracket onto the stack",
+    "If the character is a closing bracket, pop the top element from the stack",
+    "Compare the popped element with the current character - they should match",
+    "If they don't match or if the stack was empty when trying to pop, return false",
+    "After processing all characters, check if the stack is empty",
+    "Return true if the stack is empty (all brackets were properly matched), false otherwise",
+    "Test with different combinations of valid and invalid bracket sequences"
   ]
 };

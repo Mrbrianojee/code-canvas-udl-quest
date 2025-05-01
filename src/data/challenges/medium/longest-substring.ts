@@ -60,5 +60,17 @@ lengthOfLongestSubstring("pwwkew");   // returns 3 (for "wke")`,
     "When you encounter a repeated character, move your left pointer to the position after the previous occurrence.",
     "Update the maximum length whenever you find a longer valid substring.",
     "Remember to handle edge cases like empty strings or strings with all identical characters."
+  ],
+  steps: [
+    "Create a function that takes a string as input",
+    "Initialize variables to track: maximum substring length, start index of current window, and a hash map for character positions",
+    "Iterate through the string with an end pointer",
+    "For each character, check if it's already in our current window (between start and end)",
+    "If the character is in the window, move the start pointer to just after the character's last occurrence",
+    "Update the character's position in the hash map",
+    "Calculate the length of the current window (end - start + 1)",
+    "Update the maximum length if the current window is longer",
+    "After processing all characters, return the maximum length",
+    "Test with examples like 'abcabcbb', 'bbbbb', and 'pwwkew'"
   ]
 };

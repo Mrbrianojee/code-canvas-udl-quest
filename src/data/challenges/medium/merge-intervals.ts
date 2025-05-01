@@ -66,5 +66,18 @@ mergeIntervals([[1,4],[4,5]]);            // returns [[1,5]]`,
     "Two intervals [a, b] and [c, d] overlap if c <= b (assuming a < b and c < d).",
     "When merging overlapping intervals, the new interval becomes [min(a, c), max(b, d)], but since we've sorted by start time, it's just [a, max(b, d)].",
     "If there's no overlap, simply add the current interval to your result."
+  ],
+  steps: [
+    "Create a function that takes an array of intervals (where each interval is [start, end])",
+    "Handle edge cases: if there are 0 or 1 intervals, return them as is",
+    "Sort the intervals by their start times in ascending order",
+    "Initialize the result array with the first interval",
+    "Iterate through the remaining intervals starting from the second interval",
+    "For each interval, check if it overlaps with the last interval in the result array",
+    "Two intervals [a, b] and [c, d] overlap if c <= b",
+    "If they overlap, merge them by updating the end time of the last interval to max(b, d)",
+    "If they don't overlap, add the current interval to the result array",
+    "After processing all intervals, return the result array",
+    "Test with examples like [[1,3],[2,6],[8,10],[15,18]] and [[1,4],[4,5]]"
   ]
 };

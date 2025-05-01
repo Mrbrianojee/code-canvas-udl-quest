@@ -101,5 +101,17 @@ areAnagrams("rail safety", "fairy tales");  // returns true`,
     "You can sort both strings and compare them character by character.",
     "Another approach is to count the frequency of each character in both strings and compare the counts.",
     "Remember to handle special cases like spaces and case sensitivity according to your requirements."
+  ],
+  steps: [
+    "Create a function that takes two string parameters",
+    "Normalize both strings by removing spaces and converting to lowercase",
+    "Check if the normalized strings have different lengths - if so, return false immediately",
+    "For the sorting approach: Sort both strings alphabetically and compare them",
+    "For the frequency counting approach: Create a hash map to track character counts",
+    "Count the frequency of each character in the first string",
+    "Iterate through the second string, decrementing counts for each character",
+    "If any character is missing or has a count of zero when needed, return false",
+    "If all characters are accounted for, return true",
+    "Test with various inputs including anagrams with spaces and mixed case"
   ]
 };

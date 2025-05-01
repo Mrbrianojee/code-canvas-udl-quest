@@ -64,5 +64,17 @@ countVowels("JavaScript"); // returns 3`,
     "Iterate through each character and check if it's in your vowel list.",
     "Regular expressions can be a more concise way to solve this problem: use /[aeiou]/gi in JavaScript.",
     "Don't forget to handle edge cases like empty strings."
+  ],
+  steps: [
+    "Create a function that takes a string parameter",
+    "Convert the input string to lowercase for case-insensitivity",
+    "Define a list or array of vowels ('a', 'e', 'i', 'o', 'u')",
+    "Initialize a counter variable to 0",
+    "Iterate through each character in the string",
+    "For each character, check if it is in your vowels list",
+    "If it is a vowel, increment your counter",
+    "After processing all characters, return the final count",
+    "Alternative approach: Use regular expressions to match all vowels at once",
+    "Test with various inputs including mixed case strings and strings with no vowels"
   ]
 };

@@ -23,5 +23,11 @@ sum(5, 7);  // returns 12`,
     "Use the '+' operator to add two numbers together.",
     "Remember to return the result of the addition.",
     "In most languages, this can be done in a single line of code."
+  ],
+  steps: [
+    "Create a function named 'sum' that takes two parameters",
+    "Inside the function, add the two parameters together using the '+' operator",
+    "Return the result of the addition",
+    "Test your function with different input values to verify it works correctly"
   ]
 };

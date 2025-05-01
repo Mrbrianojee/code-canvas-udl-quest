@@ -76,5 +76,16 @@ rotate(nums2, 2); // nums2 becomes [3,99,-1,-100]`,
     "For an O(1) space solution, consider using array reversal operations.",
     "The triple reversal approach works because it effectively moves the last k elements to the front while maintaining relative order.",
     "Don't forget to handle the case where k > length of the array by using modulo."
+  ],
+  steps: [
+    "Create a function that takes an array and a rotation amount k",
+    "Handle edge cases: empty arrays or arrays with a single element don't need rotation",
+    "Normalize k by taking k modulo the array length (to handle cases where k > length)",
+    "Create a helper function to reverse a section of an array in-place",
+    "Use the reverse helper to first reverse the entire array",
+    "Then reverse the first k elements of the reversed array",
+    "Finally, reverse the remaining elements (from index k to the end)",
+    "The array is now rotated k positions to the right",
+    "Test with various inputs including different array sizes and rotation amounts"
   ]
 };

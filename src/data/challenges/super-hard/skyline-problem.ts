@@ -124,5 +124,20 @@ The output skyline is a list of key points [x, height].`,
     "Sort these events by x-coordinate and process from left to right",
     "Use a max heap to keep track of the current heights at any point",
     "Add a skyline point whenever the maximum height changes"
+  ],
+  steps: [
+    "Create a function that takes an array of buildings (each containing left edge, right edge, and height)",
+    "Handle edge cases such as an empty buildings array",
+    "Convert each building into two events: a 'start event' at the left edge and an 'end event' at the right edge",
+    "For start events, use negative height to ensure they're processed before end events at the same x-coordinate",
+    "Sort all events by their x-coordinate (and by height if x-coordinates are equal)",
+    "Initialize a data structure (typically a max heap) to track current heights, starting with ground level 0",
+    "Process events from left to right:",
+    "For start events, add the height to the height tracker",
+    "For end events, remove the corresponding height from the tracker",
+    "After each event, check if the maximum height has changed",
+    "If the maximum height changed, add a key point to the result",
+    "Return the final list of key points that represent the skyline",
+    "Test with the example input to verify the output matches the expected skyline"
   ]
 };

@@ -57,5 +57,15 @@ export const fizzBuzzChallenge: Challenge = {
     "Use the modulo operator (%) to check if a number is divisible by 3 or 5.",
     "Remember to check for numbers that are multiples of both 3 and 5 first.",
     "The order of your conditional checks matters!"
+  ],
+  steps: [
+    "Create a function that takes a parameter n (the maximum number)",
+    "Set up a loop that iterates from 1 to n",
+    "For each number in the loop, check if it's divisible by both 3 and 5",
+    "If it is divisible by both, print or return 'FizzBuzz'",
+    "If it's only divisible by 3, print or return 'Fizz'",
+    "If it's only divisible by 5, print or return 'Buzz'",
+    "If it's not divisible by either 3 or 5, print or return the number itself",
+    "Test your function with n = 15 to verify all conditions are handled correctly"
   ]
 };

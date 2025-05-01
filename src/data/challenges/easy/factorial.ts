@@ -59,5 +59,15 @@ factorial(10);  // returns 3,628,800`,
     "For iterative solution, start with result = 1 and multiply it by each integer from 2 to n.",
     "For recursive solution, use the formula n! = n * (n-1)! until you reach a base case.",
     "Watch out for stack overflow with large inputs when using recursion."
+  ],
+  steps: [
+    "Create a function that takes a non-negative integer n as input",
+    "Handle edge cases: check if n is negative (return null or error) and if n is 0 or 1 (return 1)",
+    "For iterative approach: Initialize a result variable to 1",
+    "Set up a loop from 2 to n and multiply the result by each number in the loop",
+    "Return the final result",
+    "For recursive approach: Establish the base cases (n <= 1 returns 1)",
+    "For values greater than 1, return n multiplied by the factorial of n-1",
+    "Test both approaches with various inputs like 0, 1, 5, and 10"
   ]
 };

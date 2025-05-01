@@ -46,5 +46,16 @@ twoSum([3, 2, 4], 6);      // returns [1, 2]`,
     "Instead, use a hash map (object in JavaScript) to store numbers you've seen and their indices.",
     "For each number, calculate what value you need to add to it to reach the target (complement = target - current number).",
     "Check if that complement is already in your hash map. If it is, you've found your pair!"
+  ],
+  steps: [
+    "Create a function that takes an array of numbers and a target sum",
+    "Initialize a hash map (or dictionary) to store numbers and their indices",
+    "Iterate through the array with a single loop",
+    "For each number, calculate its complement (target - current number)",
+    "Check if the complement exists in the hash map",
+    "If it does exist, return the indices of both the complement and the current number",
+    "If it doesn't exist, add the current number and its index to the hash map",
+    "Continue until a solution is found or the array is exhausted",
+    "Test with examples like [2, 7, 11, 15] with target 9"
   ]
 };

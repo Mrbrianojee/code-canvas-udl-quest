@@ -39,5 +39,16 @@ reverseString("world");  // returns "dlrow"`,
     "You can split a string into an array of characters, reverse that array, and then join it back together.",
     "If you want to avoid using built-in methods, you can iterate through the string in reverse order and build the new string.",
     "Think about edge cases: empty strings, strings with a single character, or strings with special characters."
+  ],
+  steps: [
+    "Create a function that takes a string as input",
+    "For the built-in method approach: Split the string into an array of characters",
+    "Reverse the array using the built-in reverse method",
+    "Join the reversed array back into a string and return it",
+    "For the manual approach: Initialize an empty string for the result",
+    "Iterate through the original string from the last character to the first",
+    "Append each character to your result string",
+    "Return the final reversed string",
+    "Test both approaches with various inputs to ensure they work correctly"
   ]
 };

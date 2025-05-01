@@ -34,5 +34,13 @@ isPalindrome("A man, a plan, a canal: Panama");  // returns true`,
     "In JavaScript, you can use regular expressions to remove unwanted characters.",
     "The reverse of a string can be obtained by: 1) splitting it into an array of characters, 2) reversing the array, and 3) joining it back.",
     "Compare the cleaned string with its reverse to determine if it's a palindrome."
+  ],
+  steps: [
+    "Create a function that takes a string parameter",
+    "Clean the input string by removing non-alphanumeric characters and converting to lowercase",
+    "Create a reversed version of the cleaned string",
+    "Compare the cleaned string with its reversed version",
+    "Return true if they are equal (palindrome) or false if they are not",
+    "Test with various inputs including palindromes with mixed case and punctuation"
   ]
 };

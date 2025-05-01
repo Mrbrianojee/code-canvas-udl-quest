@@ -156,5 +156,20 @@ Explanation: The order is invalid, so return "".`,
     "Compare adjacent words to determine the relative order of characters",
     "Use BFS for topological sort by tracking the in-degree of each node",
     "Watch out for invalid cases like when a longer word is a prefix of a shorter word"
+  ],
+  steps: [
+    "Create a function that takes an array of alien dictionary words",
+    "Build a directed graph where nodes are characters and edges represent order relationships",
+    "Initialize the graph with all unique characters from the words",
+    "Compare adjacent words to find the first differing character, which indicates an ordering relationship",
+    "Add an edge from the earlier character to the later character in the alien order",
+    "Check for invalid cases, such as when a longer word is a prefix of a shorter word",
+    "Perform a topological sort of the graph using BFS:",
+    "Initialize a queue with all characters that have zero in-degree (no characters come before them)",
+    "Process each character in the queue, decreasing the in-degree of its neighbors",
+    "When a neighbor's in-degree reaches zero, add it to the queue",
+    "Check if there's a cycle in the graph (not all characters were included in the result)",
+    "Join the sorted characters and return them as a string",
+    "Return an empty string if no valid ordering exists"
   ]
 };

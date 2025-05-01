@@ -45,5 +45,15 @@ maxSubArray([5,4,-1,7,8]);         // returns 23 (subarray [5,4,-1,7,8])`,
     "At each position, you have two choices: start a new subarray at the current element, or extend the previous subarray.",
     "Use Kadane's algorithm: keep track of the current sum and the maximum sum seen so far.",
     "Remember to handle edge cases like all negative numbers or an array with only one element."
+  ],
+  steps: [
+    "Create a function that takes an array of integers as input",
+    "Initialize two variables: maxSum and currentSum, both set to the first element of the array",
+    "Iterate through the array starting from the second element",
+    "For each element, decide whether to start a new subarray (take just the current element) or extend the existing subarray (add current element to currentSum)",
+    "Update currentSum to the maximum of these two options",
+    "Update maxSum if the currentSum is greater than the existing maxSum",
+    "After processing all elements, return maxSum as the result",
+    "Test with various inputs including arrays with negative numbers and single-element arrays"
   ]
 };
