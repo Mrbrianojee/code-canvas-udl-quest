@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -115,16 +116,15 @@
     font-family: 'Fira Code', 'Menlo', monospace;
   }
   
-  /* Ensure the textarea in the code editor works properly */
+  /* Ensure the textarea in the code editor works properly with visible cursor */
   .editor-container textarea {
     font-family: 'Fira Code', 'Menlo', monospace;
     font-size: 0.875rem;
     line-height: 1.5;
     tab-size: 2;
     letter-spacing: normal;
-    opacity: 0;
-    color: white;
-    caret-color: white;
+    color: transparent !important;
+    caret-color: white !important;
   }
   
   /* Custom styling for line numbers */
