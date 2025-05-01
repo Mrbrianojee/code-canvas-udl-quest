@@ -4,6 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import ExecutableCodeEditor from "../ExecutableCodeEditor";
 import Prism from "prismjs";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-typescript";
 import "prismjs/plugins/line-numbers/prism-line-numbers";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
@@ -23,10 +26,27 @@ const CodeSection = ({ solutions }: CodeSectionProps) => {
     if (typeof Prism !== 'undefined') {
       // Small timeout to ensure the DOM is ready
       setTimeout(() => {
-        Prism.highlightAll();
-      }, 0);
+        try {
+          Prism.highlightAll();
+        } catch (error) {
+          console.error("Error highlighting code:", error);
+        }
+      }, 100);
     }
   }, [language, showSolution]);
+  
+  // Handle language change
+  const handleLanguageChange = (newLanguage: string) => {
+    setLanguage(newLanguage);
+    // Reset solution visibility when changing language
+    setTimeout(() => {
+      try {
+        Prism.highlightAll();
+      } catch (error) {
+        console.error("Error highlighting after language change:", error);
+      }
+    }, 50);
+  };
   
   return (
     <div className="mt-4 space-y-4">
@@ -34,7 +54,7 @@ const CodeSection = ({ solutions }: CodeSectionProps) => {
       
       <Tabs 
         value={language} 
-        onValueChange={setLanguage}
+        onValueChange={handleLanguageChange}
         className="w-full"
       >
         <TabsList className="mb-2">

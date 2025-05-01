@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -41,8 +40,12 @@ const ExecutableCodeEditor = ({
     if (typeof Prism !== 'undefined') {
       // Small timeout to ensure the DOM is ready
       setTimeout(() => {
-        Prism.highlightAll();
-      }, 0);
+        try {
+          Prism.highlightAll();
+        } catch (error) {
+          console.error("Error applying Prism highlighting:", error);
+        }
+      }, 50);
     }
   }, [language, code, showSolutionProp]);
 
