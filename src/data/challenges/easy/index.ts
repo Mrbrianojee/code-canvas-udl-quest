@@ -7,6 +7,7 @@ import { sumChallenge } from './sum-of-two-numbers';
 import { factorialChallenge } from './factorial';
 import { countVowelsChallenge } from './count-vowels';
 import { maxSubArrayChallenge } from './max-subarray';
+import { convertMinutesChallenge } from './convert-minutes-seconds';
 import { Challenge } from '../types';
 
 // Export all easy challenges as an array
@@ -18,5 +19,6 @@ export const easyChallenges: Challenge[] = [
   sumChallenge,
   factorialChallenge,
   countVowelsChallenge,
-  maxSubArrayChallenge
+  maxSubArrayChallenge,
+  convertMinutesChallenge
 ];
