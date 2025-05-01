@@ -38,7 +38,7 @@ const ExecutableCodeEditor = ({
   // Initialize Prism when component mounts
   useEffect(() => {
     // Ensure Prism is initialized
-    if (typeof Prism !== 'undefined' && !Prism.manual) {
+    if (typeof Prism !== 'undefined') {
       Prism.highlightAll();
     }
   }, []);

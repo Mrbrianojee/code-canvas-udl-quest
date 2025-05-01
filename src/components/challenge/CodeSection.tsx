@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import ExecutableCodeEditor from "../ExecutableCodeEditor";
 import Prism from "prismjs";
+import "prismjs/plugins/line-numbers/prism-line-numbers";
 
 interface CodeSectionProps {
   solutions: {
