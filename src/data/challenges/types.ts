@@ -3,7 +3,7 @@ export interface Challenge {
   id: string;
   title: string;
   description: string;
-  difficulty: "easy" | "medium" | "hard";
+  difficulty: "easy" | "medium" | "hard" | "super-hard";
   solutions: {
     [language: string]: string;
   };

@@ -3,12 +3,14 @@ import { Challenge } from "./types";
 import { easyChallenges } from "./easy";
 import { mediumChallenges } from "./medium";
 import { hardChallenges } from "./hard";
+import { superHardChallenges } from "./super-hard";
 
 // Combine all challenges
 export const challenges: Challenge[] = [
   ...easyChallenges,
   ...mediumChallenges,
-  ...hardChallenges
+  ...hardChallenges,
+  ...superHardChallenges
 ];
 
 // Helper functions

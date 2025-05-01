@@ -48,6 +48,7 @@ const Index = () => {
               <TabsTrigger value="easy">Easy</TabsTrigger>
               <TabsTrigger value="medium">Medium</TabsTrigger>
               <TabsTrigger value="hard">Hard</TabsTrigger>
+              <TabsTrigger value="super-hard">Super Hard</TabsTrigger>
             </TabsList>
           </div>
           
@@ -78,6 +79,14 @@ const Index = () => {
           <TabsContent value="hard" className="mt-0">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {getChallengesByDifficulty("hard").map((challenge) => (
+                <ChallengeCard key={challenge.id} challenge={challenge} />
+              ))}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="super-hard" className="mt-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {getChallengesByDifficulty("super-hard").map((challenge) => (
                 <ChallengeCard key={challenge.id} challenge={challenge} />
               ))}
             </div>
