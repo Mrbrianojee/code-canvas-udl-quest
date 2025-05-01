@@ -28,22 +28,28 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
   // Apply syntax highlighting whenever code or language changes
   useEffect(() => {
     if (editorRef.current) {
-      // Make sure the parent element has the line-numbers class
-      const parentElement = editorRef.current.parentElement;
-      if (parentElement && !parentElement.classList.contains("line-numbers")) {
-        parentElement.classList.add("line-numbers");
-      }
+      const prismLanguage = getPrismLanguage(language);
       
-      // Apply highlighting after a small delay to ensure DOM is ready
+      // Set the code content for highlighting
+      editorRef.current.textContent = code || ' ';
+      
+      // Set the appropriate language class
+      editorRef.current.className = `language-${prismLanguage} absolute inset-0 w-full h-full p-4 pointer-events-none overflow-hidden z-10`;
+      
+      // Apply highlighting with a small delay
       setTimeout(() => {
-        Prism.highlightElement(editorRef.current);
+        try {
+          Prism.highlightElement(editorRef.current);
+        } catch (error) {
+          console.error("Error highlighting editor code:", error);
+        }
       }, 10);
     }
-  }, [code, language]);
+  }, [code, language, getPrismLanguage]);
   
   return (
     <div className="relative border rounded-md overflow-hidden">
-      <pre className="line-numbers bg-zinc-950 h-80 w-full m-0">
+      <pre className="line-numbers bg-zinc-950 h-80 w-full m-0 p-0">
         {/* The textarea for user input */}
         <textarea
           ref={textareaRef}

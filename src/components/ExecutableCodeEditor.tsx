@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -26,28 +27,18 @@ const ExecutableCodeEditor = ({
   language,
   showSolutionProp = false
 }: ExecutableCodeEditorProps) => {
-  // Start with an empty code editor instead of showing the solution
-  const [code, setCode] = useState("");
+  // Start with the initial code as a starting point for the editor
+  const [code, setCode] = useState(initialCode || "");
   const [output, setOutput] = useState("");
   const [isExecuting, setIsExecuting] = useState(false);
   
   const isPythonLanguage = language.toLowerCase() === "python";
   const { pyodide, pyodideReady, pyodideLoading } = usePyodide(isPythonLanguage);
 
-  // Initialize Prism and handle specific language loading
+  // Initialize with initialCode when language changes
   useEffect(() => {
-    // Force Prism to highlight all code elements
-    if (typeof Prism !== 'undefined') {
-      // Small timeout to ensure the DOM is ready
-      setTimeout(() => {
-        try {
-          Prism.highlightAll();
-        } catch (error) {
-          console.error("Error applying Prism highlighting:", error);
-        }
-      }, 50);
-    }
-  }, [language, code, showSolutionProp]);
+    setCode(initialCode || "");
+  }, [language, initialCode]);
 
   const handleExecute = async () => {
     setIsExecuting(true);
