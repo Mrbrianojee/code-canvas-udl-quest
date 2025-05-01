@@ -8,6 +8,7 @@ import ChallengeHints from "./challenge/ChallengeHints";
 import CodeSection from "./challenge/CodeSection";
 import ChallengeFooter from "./challenge/ChallengeFooter";
 import RegexCheatSheet from "./challenge/RegexCheatSheet";
+import BFSExplainer from "./challenge/BFSExplainer";
 
 interface ChallengeViewProps {
   challenge: Challenge;
@@ -18,6 +19,8 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
   const isWordSearchChallenge = challenge.id === "word-search";
   // Determine if we should show the regex cheat sheet for the palindrome challenge
   const isPalindromeChallenge = challenge.id === "palindrome";
+  // Determine if we should show the BFS explainer for the Word Ladder challenge
+  const isWordLadderChallenge = challenge.id === "word-ladder";
 
   return (
     <Card className="w-full max-w-4xl mx-auto">
@@ -35,6 +38,7 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
           isWordSearchChallenge={isWordSearchChallenge}
         />
         {isPalindromeChallenge && <RegexCheatSheet />}
+        {isWordLadderChallenge && <BFSExplainer />}
         <ChallengeSteps steps={challenge.steps} />
         <ChallengeHints hints={challenge.hints} />
         <CodeSection solutions={challenge.solutions} />

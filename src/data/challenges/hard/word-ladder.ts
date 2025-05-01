@@ -4,7 +4,7 @@ import { Challenge } from '../types';
 export const wordLadderChallenge: Challenge = {
   id: "word-ladder",
   title: "Word Ladder",
-  description: "A word ladder is a sequence of words where each word differs from the previous by exactly one letter.\n\nThe Problem\nGiven two words (beginWord and endWord) and a dictionary of valid words, find the shortest transformation sequence from beginWord to endWord such that:\n1. Only one letter can be changed at a time.\n2. Each transformed word must exist in the dictionary.\n\nReturn the length of the shortest transformation sequence, or 0 if no such sequence exists.",
+  description: "A word ladder is a sequence of words where each word differs from the previous by exactly one letter.\n\nThe Problem\nGiven two words (beginWord and endWord) and a dictionary of valid words, find the shortest transformation sequence from beginWord to endWord such that:\n1. Only one letter can be changed at a time.\n2. Each transformed word must exist in the dictionary.\n\nReturn the length of the shortest transformation sequence, or 0 if no such sequence exists.\n\nNote: This challenge uses a Breadth-First Search (BFS) approach - see the explainer below if you're not familiar with this algorithm.",
   difficulty: "hard",
   solutions: {
     javascript: `function ladderLength(beginWord, endWord, wordList) {
