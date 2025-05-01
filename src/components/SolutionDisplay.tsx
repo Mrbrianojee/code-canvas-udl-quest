@@ -18,18 +18,15 @@ const SolutionDisplay: React.FC<SolutionDisplayProps> = ({
   language,
   getPrismLanguage 
 }) => {
-  const preRef = useRef<HTMLPreElement>(null);
+  const codeRef = useRef<HTMLElement>(null);
   
   useEffect(() => {
-    if (preRef.current) {
-      // Apply highlighting with a small delay to ensure DOM is ready
-      setTimeout(() => {
-        try {
-          Prism.highlightElement(preRef.current);
-        } catch (error) {
-          console.error("Error highlighting solution:", error);
-        }
-      }, 20);
+    if (codeRef.current) {
+      // Set content first
+      codeRef.current.textContent = initialCode || " ";
+      
+      // Apply highlighting
+      Prism.highlightElement(codeRef.current);
     }
   }, [initialCode, language]);
   
@@ -37,8 +34,11 @@ const SolutionDisplay: React.FC<SolutionDisplayProps> = ({
     <div className="mt-4">
       <h4 className="text-md font-medium mb-2">Solution:</h4>
       <div className="bg-zinc-950 text-zinc-100 p-4 rounded-md overflow-auto max-h-96">
-        <pre ref={preRef} className="m-0 line-numbers">
-          <code className={`language-${getPrismLanguage(language)}`}>
+        <pre className="line-numbers m-0">
+          <code 
+            ref={codeRef}
+            className={`language-${getPrismLanguage(language)}`}
+          >
             {initialCode}
           </code>
         </pre>

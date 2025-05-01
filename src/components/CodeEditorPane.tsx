@@ -1,6 +1,6 @@
 
 import React, { useRef, useEffect } from 'react';
-import Prism from 'prismjs';
+import Prism from "prismjs";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-typescript";
@@ -22,32 +22,37 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
   handleCodeChange, 
   handleKeyDown 
 }) => {
-  const preRef = useRef<HTMLPreElement>(null);
+  const codeRef = useRef<HTMLElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   
-  // Apply syntax highlighting whenever code or language changes
+  // Apply syntax highlighting when code or language changes
   useEffect(() => {
-    if (preRef.current) {
-      // Set the code content for highlighting
-      preRef.current.textContent = code || " ";
+    if (codeRef.current) {
+      // Set the content first, then highlight
+      codeRef.current.textContent = code || " ";
       
-      // Apply highlighting with a small delay
-      setTimeout(() => {
-        try {
-          Prism.highlightElement(preRef.current);
-        } catch (error) {
-          console.error("Error highlighting editor code:", error);
-        }
-      }, 10);
+      // Apply highlighting
+      Prism.highlightElement(codeRef.current);
     }
   }, [code, language]);
+
+  // Adjust textarea height to match content
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [code]);
   
   return (
     <div className="relative border rounded-md overflow-hidden">
-      <div className="relative bg-zinc-950 h-80 w-full overflow-auto">
-        {/* Syntax highlighted code display */}
-        <pre ref={preRef} className="absolute inset-0 w-full h-full m-0 p-4 overflow-auto pointer-events-none line-numbers">
-          <code className={`language-${getPrismLanguage(language)} block w-full h-full font-mono`}>
+      <div className="editor-container relative bg-zinc-950 min-h-[200px] h-auto max-h-[500px] w-full overflow-auto">
+        {/* Code display with syntax highlighting */}
+        <pre className="line-numbers m-0 p-4">
+          <code 
+            ref={codeRef}
+            className={`language-${getPrismLanguage(language)} block w-full font-mono`}
+          >
             {code || ' '}
           </code>
         </pre>
@@ -58,11 +63,11 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
           value={code}
           onChange={handleCodeChange}
           onKeyDown={handleKeyDown}
-          className="absolute inset-0 w-full h-full p-4 font-mono resize-none outline-none bg-transparent"
-          style={{ 
+          className="absolute inset-0 w-full h-full p-4 font-mono resize-none text-transparent caret-white"
+          style={{
             caretColor: "white",
-            color: "transparent",
-            zIndex: 10
+            background: "transparent",
+            zIndex: 2
           }}
           placeholder={`Write your ${language} code here...`}
           spellCheck="false"

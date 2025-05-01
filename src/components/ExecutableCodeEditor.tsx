@@ -10,7 +10,7 @@ import "prismjs/components/prism-typescript";
 import "prismjs/plugins/line-numbers/prism-line-numbers";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import { executeJavaScript, executePython } from "@/utils/codeExecution";
-import { getPrismLanguage } from "@/utils/codeEditorUtils";
+import { getPrismLanguage, initPrism } from "@/utils/codeEditorUtils";
 import { usePyodide } from "@/hooks/usePyodide";
 import CodeEditorPane from "./CodeEditorPane";
 import SolutionDisplay from "./SolutionDisplay";
@@ -34,6 +34,11 @@ const ExecutableCodeEditor = ({
   
   const isPythonLanguage = language.toLowerCase() === "python";
   const { pyodide, pyodideReady, pyodideLoading } = usePyodide(isPythonLanguage);
+
+  // Initialize Prism when component mounts
+  useEffect(() => {
+    initPrism();
+  }, []);
 
   // Reset code when language changes
   useEffect(() => {
@@ -153,7 +158,7 @@ const ExecutableCodeEditor = ({
         </span>
       </div>
       
-      {showSolutionProp && (
+      {showSolution && (
         <SolutionDisplay 
           initialCode={initialCode}
           language={language}
