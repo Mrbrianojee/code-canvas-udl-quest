@@ -38,6 +38,15 @@ const ExecutableCodeEditor = ({
   // Initialize with initialCode when language changes
   useEffect(() => {
     setCode(initialCode || "");
+    
+    // Ensure Prism is ready for the new language
+    setTimeout(() => {
+      try {
+        Prism.highlightAll();
+      } catch (error) {
+        console.error("Error highlighting after language change:", error);
+      }
+    }, 50);
   }, [language, initialCode]);
 
   const handleExecute = async () => {

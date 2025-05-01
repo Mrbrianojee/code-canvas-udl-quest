@@ -46,14 +46,14 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
   
   return (
     <div className="relative border rounded-md overflow-hidden">
-      <pre className="line-numbers bg-zinc-950 h-80 w-full m-0 p-0 overflow-auto">
+      <div className="relative bg-zinc-950 h-80 w-full">
         {/* Hidden textarea for user input */}
         <textarea
           ref={textareaRef}
           value={code}
           onChange={handleCodeChange}
           onKeyDown={handleKeyDown}
-          className="absolute inset-0 w-full h-full p-4 font-mono text-transparent caret-white resize-none bg-transparent z-20 outline-none"
+          className="absolute inset-0 w-full h-full p-4 font-mono bg-transparent z-10 resize-none outline-none"
           style={{ 
             caretColor: "white",
             color: "transparent",
@@ -63,13 +63,15 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
         />
         
         {/* Syntax highlighted code display */}
-        <code 
-          ref={editorRef}
-          className={`language-${getPrismLanguage(language)} absolute inset-0 w-full h-full p-4 pointer-events-none font-mono`}
-        >
-          {code || ' '} {/* Ensure there's always content for highlighting */}
-        </code>
-      </pre>
+        <pre className="line-numbers absolute inset-0 w-full h-full m-0 p-0 overflow-auto">
+          <code 
+            ref={editorRef}
+            className={`language-${getPrismLanguage(language)} block w-full h-full p-4 font-mono`}
+          >
+            {code || ' '} {/* Ensure there's always content for highlighting */}
+          </code>
+        </pre>
+      </div>
     </div>
   );
 };
