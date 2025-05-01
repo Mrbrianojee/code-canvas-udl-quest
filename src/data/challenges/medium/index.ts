@@ -6,6 +6,7 @@ import { validParenthesesChallenge } from './valid-parentheses';
 import { rotateArrayChallenge } from './rotate-array';
 import { palindromeChallenge } from './palindrome';
 import { sudokuSolverChallenge } from './sudoku-solver';
+import { ticTacToeChallenge } from './tic-tac-toe';
 import { Challenge } from '../types';
 
 // Export all medium challenges as an array
@@ -16,5 +17,6 @@ export const mediumChallenges: Challenge[] = [
   validParenthesesChallenge,
   rotateArrayChallenge,
   palindromeChallenge,
-  sudokuSolverChallenge
+  sudokuSolverChallenge,
+  ticTacToeChallenge
 ];
