@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import Prism from 'prismjs';
 import "prismjs/plugins/line-numbers/prism-line-numbers";
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 interface SolutionDisplayProps {
   initialCode: string;
@@ -18,6 +19,10 @@ const SolutionDisplay: React.FC<SolutionDisplayProps> = ({
   
   useEffect(() => {
     if (codeRef.current) {
+      // Ensure the line-numbers class is present
+      codeRef.current.parentElement?.classList.add("line-numbers");
+      
+      // Apply highlighting
       Prism.highlightElement(codeRef.current);
     }
   }, [initialCode, language]);

@@ -5,6 +5,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import ExecutableCodeEditor from "../ExecutableCodeEditor";
 import Prism from "prismjs";
 import "prismjs/plugins/line-numbers/prism-line-numbers";
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 interface CodeSectionProps {
   solutions: {
@@ -17,10 +18,13 @@ const CodeSection = ({ solutions }: CodeSectionProps) => {
   const [language, setLanguage] = useState<string>("javascript");
   const availableLanguages = Object.keys(solutions);
   
-  // Initialize Prism highlighting when component mounts
+  // Initialize Prism highlighting when component mounts or language changes
   useEffect(() => {
     if (typeof Prism !== 'undefined') {
-      Prism.highlightAll();
+      // Small timeout to ensure the DOM is ready
+      setTimeout(() => {
+        Prism.highlightAll();
+      }, 0);
     }
   }, [language, showSolution]);
   

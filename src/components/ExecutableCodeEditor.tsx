@@ -35,13 +35,16 @@ const ExecutableCodeEditor = ({
   const isPythonLanguage = language.toLowerCase() === "python";
   const { pyodide, pyodideReady, pyodideLoading } = usePyodide(isPythonLanguage);
 
-  // Initialize Prism when component mounts
+  // Initialize Prism and handle specific language loading
   useEffect(() => {
-    // Ensure Prism is initialized
+    // Force Prism to highlight all code elements
     if (typeof Prism !== 'undefined') {
-      Prism.highlightAll();
+      // Small timeout to ensure the DOM is ready
+      setTimeout(() => {
+        Prism.highlightAll();
+      }, 0);
     }
-  }, []);
+  }, [language, code, showSolutionProp]);
 
   const handleExecute = async () => {
     setIsExecuting(true);

@@ -22,14 +22,13 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
   const editorRef = useRef<HTMLPreElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   
+  // Apply syntax highlighting whenever code or language changes
   useEffect(() => {
     if (editorRef.current) {
-      // Ensure line-numbers class is added
-      if (!editorRef.current.classList.contains("line-numbers")) {
-        editorRef.current.classList.add("line-numbers");
-      }
+      // Make sure the line-numbers class is present
+      editorRef.current.className = "absolute inset-0 w-full h-full p-4 pointer-events-none code-block line-numbers overflow-hidden z-10";
       
-      // Apply Prism highlighting
+      // Apply highlighting
       Prism.highlightElement(editorRef.current);
     }
   }, [code, language]);
