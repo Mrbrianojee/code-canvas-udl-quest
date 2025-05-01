@@ -1,8 +1,9 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import ExecutableCodeEditor from "../ExecutableCodeEditor";
+import Prism from "prismjs";
 
 interface CodeSectionProps {
   solutions: {
@@ -14,6 +15,13 @@ const CodeSection = ({ solutions }: CodeSectionProps) => {
   const [showSolution, setShowSolution] = useState(false);
   const [language, setLanguage] = useState<string>("javascript");
   const availableLanguages = Object.keys(solutions);
+  
+  // Initialize Prism highlighting when component mounts
+  useEffect(() => {
+    if (typeof Prism !== 'undefined') {
+      Prism.highlightAll();
+    }
+  }, [language, showSolution]);
   
   return (
     <div className="mt-4 space-y-4">

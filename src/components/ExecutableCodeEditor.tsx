@@ -1,8 +1,14 @@
+
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Play, Copy } from "lucide-react";
 import Prism from "prismjs";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-typescript";
+import "prismjs/plugins/line-numbers/prism-line-numbers";
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 interface ExecutableCodeEditorProps {
   initialCode: string;
@@ -42,9 +48,23 @@ const ExecutableCodeEditor = ({
   // Handle code changes and syntax highlighting
   useEffect(() => {
     if (editorRef.current) {
+      // Ensure line-numbers class is added
+      if (!editorRef.current.classList.contains("line-numbers")) {
+        editorRef.current.classList.add("line-numbers");
+      }
+      
+      // Apply Prism highlighting
       Prism.highlightElement(editorRef.current);
     }
   }, [code, language]);
+
+  // Initialize Prism when component mounts
+  useEffect(() => {
+    // Ensure Prism is initialized
+    if (typeof Prism !== 'undefined' && !Prism.manual) {
+      Prism.highlightAll();
+    }
+  }, []);
 
   // Load Pyodide when needed for Python execution
   useEffect(() => {
@@ -245,7 +265,7 @@ ${pythonCode}
           {/* Syntax highlighted code display */}
           <pre 
             ref={editorRef}
-            className="absolute inset-0 w-full h-full p-4 pointer-events-none code-block overflow-hidden z-10"
+            className="absolute inset-0 w-full h-full p-4 pointer-events-none code-block line-numbers overflow-hidden z-10"
             aria-hidden="true"
           >
             <code className={`language-${getPrismLanguage(language)}`}>
@@ -287,7 +307,7 @@ ${pythonCode}
         <div className="mt-4">
           <h4 className="text-md font-medium mb-2">Solution:</h4>
           <div className="bg-zinc-950 text-zinc-100 p-4 rounded-md overflow-auto max-h-96">
-            <pre className="code-block">
+            <pre className="code-block line-numbers">
               <code className={`language-${getPrismLanguage(language)}`}>
                 {initialCode}
               </code>
