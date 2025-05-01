@@ -4,30 +4,39 @@ import { Challenge } from '../types';
 export const sumChallenge: Challenge = {
   id: "sum-of-two-numbers",
   title: "Sum of Two Numbers",
-  description: "Write a function that takes two numbers as arguments and returns their sum.\n\nThis is a very basic exercise to practice function syntax and arithmetic operations.",
+  description: "Let's tackle a basic math problem that's perfect for beginners. Here's what you need to do: The Problem Your task is to write a simple program. This program should ask for two numbers, then show you the total of these numbers.",
   difficulty: "easy",
   solutions: {
-    javascript: `function sum(a, b) {
-  return a + b;
-}`,
-    python: `def sum(a, b):
-    return a + b`
+    javascript: `let num1 = parseInt(prompt("Enter first number: "));
+let num2 = parseInt(prompt("Enter second number: "));
+
+let sum = num1 + num2;
+
+console.log(\`The sum is: \${sum}\`);`,
+    python: `num1 = int(input("Enter first number: "))
+num2 = int(input("Enter second number: "))
+
+sum = num1 + num2
+
+print("The sum is:", sum)`
   },
   categories: ["Fundamentals", "Arithmetic"],
   createdAt: "2023-05-10",
-  example: `sum(1, 2);  // returns 3
-sum(-1, 1); // returns 0
-sum(5, 7);  // returns 12`,
-  explanation: "This is the most fundamental programming exercise possible. We create a function that takes two parameters and returns their sum using the addition operator.\n\nIt's a simple demonstration of function declaration, parameters, and return values.",
+  example: `Input:
+5
+10
+Output:
+15`,
+  explanation: "This simple problem helps you practice getting information from the user, doing something with it, and then showing the result. It's a good step to get comfortable with before you dive into more complicated programming challenges!",
   hints: [
-    "Use the '+' operator to add two numbers together.",
-    "Remember to return the result of the addition.",
-    "In most languages, this can be done in a single line of code."
+    "Make sure to change the user's input into numbers before adding them up.",
+    "Show the result in a way that's easy for the user to understand.",
+    "You can also check if the user actually entered numbers."
   ],
   steps: [
-    "Create a function named 'sum' that takes two parameters",
-    "Inside the function, add the two parameters together using the '+' operator",
-    "Return the result of the addition",
-    "Test your function with different input values to verify it works correctly"
+    "Ask the user for two numbers.",
+    "Save these numbers in two spots, let's call them num1 and num2.",
+    "Add num1 and num2 together, and save this in a new spot called sum.",
+    "Show the user the sum."
   ]
 };
