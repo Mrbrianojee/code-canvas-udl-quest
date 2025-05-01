@@ -111,12 +111,12 @@ const ExecutableCodeEditor = ({
     }
   };
 
-  // Copy solution to clipboard
+  // Copy solution to clipboard and editor
   const copySolutionToClipboard = () => {
     navigator.clipboard.writeText(initialCode)
       .then(() => {
         setCode(initialCode);
-        toast.success("Solution copied to clipboard and applied to editor");
+        toast.success("Solution copied to code editor");
         
         // Add delay to allow Prism to highlight after updating code
         setTimeout(() => {
