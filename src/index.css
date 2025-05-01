@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -98,7 +97,7 @@
     font-family: 'Fira Code', 'Menlo', monospace;
     line-height: 1.5;
     tab-size: 2;
-    white-space: pre-wrap;
+    white-space: pre;
     letter-spacing: normal;
   }
   
@@ -107,7 +106,7 @@
     font-family: 'Fira Code', 'Menlo', monospace;
     line-height: 1.5;
     tab-size: 2;
-    white-space: pre-wrap;
+    white-space: pre;
     letter-spacing: normal;
   }
   
@@ -116,15 +115,16 @@
     font-family: 'Fira Code', 'Menlo', monospace;
   }
   
-  /* Ensure the textarea in the code editor is fully transparent but cursor visible */
-  textarea {
-    font-family: 'Fira Code', 'Menlo', monospace !important;
-    line-height: 1.5;
+  /* Ensure the textarea in the code editor works properly */
+  .editor-container textarea {
+    font-family: 'Fira Code', 'Menlo', monospace;
     font-size: 0.875rem;
-    white-space: pre-wrap;
+    line-height: 1.5;
+    tab-size: 2;
     letter-spacing: normal;
-    color: transparent !important;
-    caret-color: white !important;
+    opacity: 0;
+    color: white;
+    caret-color: white;
   }
   
   /* Custom styling for line numbers */
