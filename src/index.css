@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -95,11 +96,15 @@
   pre {
     @apply p-4 rounded-lg overflow-x-auto text-sm my-4;
     font-family: 'Fira Code', 'Menlo', monospace;
+    line-height: 1.5;
+    tab-size: 2;
   }
   
   pre code {
     @apply text-sm;
     font-family: 'Fira Code', 'Menlo', monospace;
+    line-height: 1.5;
+    tab-size: 2;
   }
   
   .code-block {
@@ -110,6 +115,8 @@
   /* Ensure the textarea in the code editor is fully visible and has priority */
   textarea {
     font-family: 'Fira Code', 'Menlo', monospace;
+    line-height: 1.5;
+    font-size: 0.875rem;
   }
   
   /* Custom styling for line numbers */
