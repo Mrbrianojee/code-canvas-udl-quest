@@ -17,9 +17,14 @@ function holaMundo() {
   console.log("Hola Mundo!");
 }
 
-// Personalized greeting
+// Personalized greeting with template literals (modern)
 function helloName(name) {
   console.log(\`Hello, \${name}!\`);
+}
+
+// Personalized greeting with concatenation (traditional)
+function helloNameConcat(name) {
+  console.log("Hello, " + name + "!");
 }
 
 // Multiple lines
@@ -42,9 +47,13 @@ def hello_world():
 def hola_mundo():
     print("Hola Mundo!")
 
-# Personalized greeting
+# Personalized greeting with f-strings (modern)
 def hello_name(name):
     print(f"Hello, {name}!")
+
+# Personalized greeting with concatenation (traditional)
+def hello_name_concat(name):
+    print("Hello, " + name + "!")
 
 # Multiple lines
 def hello_world_plus():
@@ -60,14 +69,16 @@ def hello_world_loop():
   createdAt: "2023-04-15",
   example: `helloWorld(); // Output: Hello, World!
 holaMundo(); // Output: Hola Mundo!
-helloName("Alice"); // Output: Hello, Alice!
+helloName("Alice"); // Output: Hello, Alice! (using template literals)
+helloNameConcat("Bob"); // Output: Hello, Bob! (using string concatenation)
 helloWorldPlus(); // Output: Hello, World! followed by Have a nice day!
 helloWorldLoop(); // Prints Hello, World! 10 times`,
-  explanation: "This challenge introduces syntax differences between programming languages and basic programming concepts like variables, function definitions, string formatting, and loops.\n\nEach language has its own way of defining functions, printing to the console, and implementing loops, but they all accomplish the same tasks.",
+  explanation: "This challenge introduces syntax differences between programming languages and basic programming concepts like variables, function definitions, string formatting, and loops.\n\nEach language has its own way of defining functions, printing to the console, and implementing loops, but they all accomplish the same tasks.\n\nYou can also see different approaches to string concatenation - modern methods like template literals in JavaScript and f-strings in Python, versus traditional concatenation with the + operator. Both achieve the same result but with different syntax.",
   hints: [
     "Remember that in JavaScript, you can use console.log() to print to the console.",
     "Function declarations in JavaScript start with the 'function' keyword.",
     "To create a personalized greeting, use string interpolation with template literals in JavaScript (`Hello, ${name}!`) or f-strings in Python (f\"Hello, {name}!\").",
+    "Alternatively, you can concatenate strings using the + operator in both JavaScript and Python.",
     "For loops in JavaScript use the syntax: for (let i = 0; i < count; i++) { ... }",
     "For loops in Python use the syntax: for i in range(count): ..."
   ]
