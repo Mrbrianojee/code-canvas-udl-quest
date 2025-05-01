@@ -4,6 +4,7 @@ import { longestSubstringChallenge } from './longest-substring';
 import { mergeIntervalsChallenge } from './merge-intervals';
 import { validParenthesesChallenge } from './valid-parentheses';
 import { rotateArrayChallenge } from './rotate-array';
+import { arrayRotationChallenge } from './array-rotation';
 import { palindromeChallenge } from './palindrome';
 import { sudokuSolverChallenge } from './sudoku-solver';
 import { ticTacToeChallenge } from './tic-tac-toe';
@@ -16,6 +17,7 @@ export const mediumChallenges: Challenge[] = [
   mergeIntervalsChallenge,
   validParenthesesChallenge,
   rotateArrayChallenge,
+  arrayRotationChallenge,
   palindromeChallenge,
   sudokuSolverChallenge,
   ticTacToeChallenge
