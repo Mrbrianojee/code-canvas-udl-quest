@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -98,6 +97,8 @@
     font-family: 'Fira Code', 'Menlo', monospace;
     line-height: 1.5;
     tab-size: 2;
+    white-space: pre-wrap;
+    letter-spacing: normal;
   }
   
   pre code {
@@ -105,6 +106,8 @@
     font-family: 'Fira Code', 'Menlo', monospace;
     line-height: 1.5;
     tab-size: 2;
+    white-space: pre-wrap;
+    letter-spacing: normal;
   }
   
   .code-block {
@@ -117,6 +120,8 @@
     font-family: 'Fira Code', 'Menlo', monospace;
     line-height: 1.5;
     font-size: 0.875rem;
+    white-space: pre-wrap;
+    letter-spacing: normal;
   }
   
   /* Custom styling for line numbers */
