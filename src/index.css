@@ -122,6 +122,7 @@
     font-size: 0.875rem;
     white-space: pre-wrap;
     letter-spacing: normal;
+    color: transparent !important; /* Make text invisible but keep cursor visible */
   }
   
   /* Custom styling for line numbers */

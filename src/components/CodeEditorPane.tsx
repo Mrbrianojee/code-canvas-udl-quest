@@ -57,7 +57,7 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
           value={code}
           onChange={handleCodeChange}
           onKeyDown={handleKeyDown}
-          className="absolute inset-0 w-full h-full p-4 font-mono resize-none bg-transparent text-transparent caret-white z-10 whitespace-pre-wrap"
+          className="absolute inset-0 w-full h-full p-4 font-mono resize-none bg-transparent text-opacity-0 text-white caret-white z-10 whitespace-pre-wrap"
           style={{
             caretColor: "white",
             fontFamily: "'Fira Code', 'Menlo', monospace",
@@ -65,6 +65,7 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
             lineHeight: "inherit",
             tabSize: "2",
             letterSpacing: "normal",
+            position: "absolute",
           }}
           placeholder={`Write your ${language} code here...`}
           spellCheck="false"
