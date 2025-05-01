@@ -1,0 +1,24 @@
+
+import { helloWorldChallenge } from './hello-world';
+import { fizzBuzzChallenge } from './fizzbuzz';
+import { palindromeChallenge } from './palindrome';
+import { reverseStringChallenge } from './reverse-string';
+import { anagramChallenge } from './anagram';
+import { sumChallenge } from './sum-of-two-numbers';
+import { factorialChallenge } from './factorial';
+import { countVowelsChallenge } from './count-vowels';
+import { maxSubArrayChallenge } from './max-subarray';
+import { Challenge } from '../types';
+
+// Export all easy challenges as an array
+export const easyChallenges: Challenge[] = [
+  helloWorldChallenge,
+  fizzBuzzChallenge,
+  palindromeChallenge,
+  reverseStringChallenge,
+  anagramChallenge,
+  sumChallenge,
+  factorialChallenge,
+  countVowelsChallenge,
+  maxSubArrayChallenge
+];
