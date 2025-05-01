@@ -13,4 +13,5 @@ export interface Challenge {
   timeComplexity?: string;
   createdAt: string;
   hints?: string[];
+  steps?: string[];
 }

@@ -38,6 +38,9 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
 
   // Check if there are hints to display
   const hasHints = challenge.hints && challenge.hints.length > 0;
+  
+  // Check if there are steps to display
+  const hasSteps = challenge.steps && challenge.steps.length > 0;
 
   return (
     <Card className="w-full max-w-4xl mx-auto">
@@ -80,6 +83,17 @@ const ChallengeView = ({ challenge }: ChallengeViewProps) => {
                 For this challenge, the example board will be automatically added when you run the code. 
                 You only need to implement the <code className="bg-amber-100 px-1 py-0.5 rounded">exist()</code> function.
               </p>
+            </div>
+          )}
+
+          {hasSteps && (
+            <div className="mt-4">
+              <h4 className="text-md font-medium mb-2">Steps:</h4>
+              <ol className="list-decimal ml-5 space-y-1">
+                {challenge.steps.map((step, index) => (
+                  <li key={index} className="text-muted-foreground">{step}</li>
+                ))}
+              </ol>
             </div>
           )}
 

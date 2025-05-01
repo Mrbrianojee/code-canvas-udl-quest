@@ -81,5 +81,13 @@ helloWorldLoop(); // Prints Hello, World! 10 times`,
     "Alternatively, you can concatenate strings using the + operator in both JavaScript and Python.",
     "For loops in JavaScript use the syntax: for (let i = 0; i < count; i++) { ... }",
     "For loops in Python use the syntax: for i in range(count): ..."
+  ],
+  steps: [
+    "Set up a basic function that uses console.log() (JavaScript) or print() (Python) to output 'Hello, World!'",
+    "Create a variation that outputs 'Hello, World!' in a different language like Spanish ('Hola Mundo!')",
+    "Create a personalized greeting function that takes a name parameter and includes it in the output",
+    "Try different string formatting methods like template literals in JavaScript or f-strings in Python",
+    "Write a function that prints multiple lines of text",
+    "Implement a loop that prints 'Hello, World!' multiple times"
   ]
 };
