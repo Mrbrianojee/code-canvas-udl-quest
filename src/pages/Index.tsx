@@ -1,13 +1,20 @@
 
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChallengeCard from "@/components/ChallengeCard";
-import { challenges, getChallengesByDifficulty } from "@/data/challenges/index";
+import { getChallengesByDifficulty } from "@/data/challenges/index";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Challenge } from "@/data/challenges";
+
+// Define type for the loader data
+interface IndexLoaderData {
+  challenges: Challenge[];
+}
 
 const Index = () => {
+  const { challenges } = useLoaderData() as IndexLoaderData;
   const [searchParams] = useSearchParams();
   const difficultyParam = searchParams.get("difficulty");
   const [activeTab, setActiveTab] = useState<string>(difficultyParam || "all");
