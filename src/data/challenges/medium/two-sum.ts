@@ -3,41 +3,51 @@ import { Challenge } from '../types';
 
 export const twoSumChallenge: Challenge = {
   id: "two-sum",
-  title: "Sum of Two Numbers",
-  description: "Let's tackle a basic math problem that's perfect for beginners. Here's what you need to do:\n\nThe Problem\nYour task is to write a simple program. This program should ask for two numbers, then show you the total of these numbers.",
+  title: "Two Sum Problem",
+  description: "The Two Sum problem is a classic. It's great for working on your problem-solving skills.\n\nThe Problem\nYou have a list of numbers and a target sum. Find two numbers that add up to the target and return their positions.",
   difficulty: "medium",
   solutions: {
-    javascript: `let num1 = parseInt(prompt("Enter first number: "));
-let num2 = parseInt(prompt("Enter second number: "));
+    javascript: `function twoSum(arr, target) {
 
-let sum = num1 + num2;
+  for (let i = 0; i < arr.length; i++) {
+    let diff = target - arr[i];
+    if (arr.includes(diff) && arr.indexOf(diff) != i) {
+      return [i, arr.indexOf(diff)];
+    } 
+  }
 
-console.log(\`The sum is: \${sum}\`);`,
-    python: `num1 = int(input("Enter first number: "))
-num2 = int(input("Enter second number: "))
+}
 
-sum = num1 + num2
+let result = twoSum([2, 5, 7, 9], 11); 
+console.log(result); // [0, 2]`,
+    python: `def two_sum(arr, target):
 
-print("The sum is:", sum)`
+  for i in range(len(arr)):
+    diff = target - arr[i] 
+    if diff in arr and arr.index(diff) != i:
+      return [i, arr.index(diff)]
+
+print(two_sum([2,5,7,9], 11)) # [0, 2]`
   },
-  example: `Input:
-5
-10
-Output:
-15`,
-  categories: ["Arrays", "Fundamentals", "Arithmetic"],
+  example: `array: [2, 5, 7, 9]
+target: 11  
+
+output: [0, 2] 
+
+# Because array[0] + array[2] equals 11`,
+  categories: ["Arrays", "Algorithms", "Searching"],
   createdAt: "2023-04-18",
-  timeComplexity: "O(1)",
-  explanation: "This simple problem helps you practice getting information from the user, doing something with it, and then showing the result. It's a good step to get comfortable with before you dive into more complicated programming challenges!",
+  timeComplexity: "O(n²)",
+  explanation: "This problem tests your ability to search through an array efficiently. The naive solution checks each number against every other number (O(n²)), but more efficient solutions exist using hash maps (O(n)).",
   hints: [
-    "Make sure to change the user's input into numbers before adding them up.",
-    "Show the result in a way that's easy for the user to understand.",
-    "You can also check if the user actually entered numbers."
+    "Try using a data structure that allows for quick lookups.",
+    "For each number, you only need to check if its complement (target - number) exists in the array.",
+    "Consider using a hash map to store numbers you've already seen."
   ],
   steps: [
-    "Ask the user for two numbers.",
-    "Save these numbers in two spots, let's call them num1 and num2.",
-    "Add num1 and num2 together, and save this in a new spot called sum.",
-    "Show the user the sum."
+    "Go through the list.",
+    "For each number, figure out what you need to add to it to get the target.",
+    "See if that number is also in the list.",
+    "If yes, return their positions."
   ]
 };
