@@ -11,7 +11,7 @@ interface CodeSectionProps {
 }
 
 const CodeSection = ({ solutions }: CodeSectionProps) => {
-  const [showSolution, setShowSolution] = useState(false);
+  const [showSolution, setShowSolution] = useState(true); // Show solution by default
   const [language, setLanguage] = useState<string>("javascript");
   const availableLanguages = Object.keys(solutions);
   

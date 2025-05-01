@@ -9,6 +9,7 @@ import { usePyodide } from "@/hooks/usePyodide";
 import CodeEditorPane from "./CodeEditorPane";
 import SolutionDisplay from "./SolutionDisplay";
 import CodeOutputDisplay from "./CodeOutputDisplay";
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable";
 
 // Import Prism CSS
 import "prismjs/themes/prism-tomorrow.css"; 
@@ -120,13 +121,42 @@ const ExecutableCodeEditor = ({
 
   return (
     <div className="space-y-4 mt-4">
-      <CodeEditorPane 
-        code={code}
-        language={language}
-        getPrismLanguage={getPrismLanguage}
-        handleCodeChange={handleCodeChange}
-        handleKeyDown={handleKeyDown}
-      />
+      {showSolution ? (
+        <ResizablePanelGroup
+          direction="horizontal"
+          className="min-h-[200px] border rounded-md overflow-hidden"
+        >
+          <ResizablePanel defaultSize={50} minSize={30}>
+            <div className="h-full">
+              <CodeEditorPane 
+                code={code}
+                language={language}
+                getPrismLanguage={getPrismLanguage}
+                handleCodeChange={handleCodeChange}
+                handleKeyDown={handleKeyDown}
+              />
+            </div>
+          </ResizablePanel>
+          <ResizableHandle withHandle />
+          <ResizablePanel defaultSize={50} minSize={30}>
+            <div className="h-full p-2 bg-slate-50 dark:bg-slate-900">
+              <SolutionDisplay 
+                initialCode={initialCode}
+                language={language}
+                getPrismLanguage={getPrismLanguage}
+              />
+            </div>
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      ) : (
+        <CodeEditorPane 
+          code={code}
+          language={language}
+          getPrismLanguage={getPrismLanguage}
+          handleCodeChange={handleCodeChange}
+          handleKeyDown={handleKeyDown}
+        />
+      )}
       
       <div className="flex justify-between items-center">
         <div className="flex gap-2">
@@ -155,14 +185,6 @@ const ExecutableCodeEditor = ({
           {language}
         </span>
       </div>
-      
-      {showSolution && (
-        <SolutionDisplay 
-          initialCode={initialCode}
-          language={language}
-          getPrismLanguage={getPrismLanguage}
-        />
-      )}
       
       <CodeOutputDisplay output={output} />
     </div>
