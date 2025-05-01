@@ -9,6 +9,7 @@ import { countVowelsChallenge } from './count-vowels';
 import { maxSubArrayChallenge } from './max-subarray';
 import { convertMinutesChallenge } from './convert-minutes-seconds';
 import { palindromeChallenge } from './palindrome';
+import { longestWordChallenge } from './longest-word';
 import { Challenge } from '../types';
 
 // Export all easy challenges as an array
@@ -22,5 +23,6 @@ export const easyChallenges: Challenge[] = [
   countVowelsChallenge,
   maxSubArrayChallenge,
   convertMinutesChallenge,
-  palindromeChallenge
+  palindromeChallenge,
+  longestWordChallenge
 ];
