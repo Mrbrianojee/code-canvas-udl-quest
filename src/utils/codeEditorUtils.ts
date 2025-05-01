@@ -1,4 +1,6 @@
 
+import Prism from "prismjs";
+
 /**
  * Map component props language to Prism language
  */
