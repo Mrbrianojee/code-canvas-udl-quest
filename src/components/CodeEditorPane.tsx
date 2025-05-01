@@ -33,9 +33,6 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
       // Set the code content for highlighting
       editorRef.current.textContent = code || ' ';
       
-      // Set the appropriate language class
-      editorRef.current.className = `language-${prismLanguage} absolute inset-0 w-full h-full p-4 pointer-events-none overflow-hidden z-10`;
-      
       // Apply highlighting with a small delay
       setTimeout(() => {
         try {
@@ -49,17 +46,17 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
   
   return (
     <div className="relative border rounded-md overflow-hidden">
-      <pre className="line-numbers bg-zinc-950 h-80 w-full m-0 p-0">
-        {/* The textarea for user input */}
+      <pre className="line-numbers bg-zinc-950 h-80 w-full m-0 p-0 overflow-auto">
+        {/* Hidden textarea for user input */}
         <textarea
           ref={textareaRef}
           value={code}
           onChange={handleCodeChange}
           onKeyDown={handleKeyDown}
-          className="absolute inset-0 w-full h-full p-4 font-mono resize-none text-white opacity-70 z-20"
+          className="absolute inset-0 w-full h-full p-4 font-mono text-transparent caret-white resize-none bg-transparent z-20 outline-none"
           style={{ 
-            background: "transparent",
-            caretColor: "white"
+            caretColor: "white",
+            color: "transparent",
           }}
           placeholder={`Write your ${language} code here...`}
           spellCheck="false"
@@ -68,7 +65,7 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
         {/* Syntax highlighted code display */}
         <code 
           ref={editorRef}
-          className={`language-${getPrismLanguage(language)} absolute inset-0 w-full h-full p-4 pointer-events-none overflow-hidden z-10`}
+          className={`language-${getPrismLanguage(language)} absolute inset-0 w-full h-full p-4 pointer-events-none font-mono`}
         >
           {code || ' '} {/* Ensure there's always content for highlighting */}
         </code>
