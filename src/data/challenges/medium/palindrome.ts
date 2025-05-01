@@ -5,7 +5,7 @@ export const palindromeChallenge: Challenge = {
   id: "palindrome",
   title: "Palindrome Checker",
   description: "Write a function that checks if a given string is a palindrome.\n\nA palindrome is a string that reads the same backward as forward, ignoring case, punctuation, and spaces.",
-  difficulty: "easy",
+  difficulty: "medium",
   solutions: {
     javascript: `function isPalindrome(str) {
   // Remove non-alphanumeric characters and convert to lowercase
@@ -22,7 +22,7 @@ export const palindromeChallenge: Challenge = {
     # Compare the string with its reverse
     return clean_str == clean_str[::-1]`
   },
-  categories: ["Strings", "Algorithms"],
+  categories: ["Strings", "Algorithms", "Regular Expressions"],
   createdAt: "2023-04-17",
   example: `isPalindrome("racecar");  // returns true
 isPalindrome("hello");    // returns false

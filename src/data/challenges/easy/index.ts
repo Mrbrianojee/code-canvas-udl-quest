@@ -1,7 +1,6 @@
 
 import { helloWorldChallenge } from './hello-world';
 import { fizzBuzzChallenge } from './fizzbuzz';
-import { palindromeChallenge } from './palindrome';
 import { reverseStringChallenge } from './reverse-string';
 import { anagramChallenge } from './anagram';
 import { sumChallenge } from './sum-of-two-numbers';
@@ -14,7 +13,6 @@ import { Challenge } from '../types';
 export const easyChallenges: Challenge[] = [
   helloWorldChallenge,
   fizzBuzzChallenge,
-  palindromeChallenge,
   reverseStringChallenge,
   anagramChallenge,
   sumChallenge,
