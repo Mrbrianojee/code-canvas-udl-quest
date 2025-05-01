@@ -9,6 +9,7 @@ import { palindromeChallenge } from './palindrome';
 import { sudokuSolverChallenge } from './sudoku-solver';
 import { ticTacToeChallenge } from './tic-tac-toe';
 import { integerToRomanChallenge } from './integer-to-roman';
+import { validateEmailChallenge } from './validate-email';
 import { Challenge } from '../types';
 
 // Export all medium challenges as an array
@@ -22,5 +23,6 @@ export const mediumChallenges: Challenge[] = [
   palindromeChallenge,
   sudokuSolverChallenge,
   ticTacToeChallenge,
-  integerToRomanChallenge
+  integerToRomanChallenge,
+  validateEmailChallenge
 ];
