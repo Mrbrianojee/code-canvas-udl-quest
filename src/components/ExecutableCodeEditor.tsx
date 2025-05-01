@@ -113,9 +113,24 @@ const ExecutableCodeEditor = ({
 
   // Copy solution to clipboard
   const copySolutionToClipboard = () => {
-    navigator.clipboard.writeText(initialCode);
-    setCode(initialCode);
-    toast.success("Solution copied to clipboard and applied to editor");
+    navigator.clipboard.writeText(initialCode)
+      .then(() => {
+        setCode(initialCode);
+        toast.success("Solution copied to clipboard and applied to editor");
+        
+        // Add delay to allow Prism to highlight after updating code
+        setTimeout(() => {
+          try {
+            Prism.highlightAll();
+          } catch (error) {
+            console.error("Error highlighting after copying solution:", error);
+          }
+        }, 50);
+      })
+      .catch(err => {
+        toast.error("Failed to copy solution");
+        console.error("Copy failed:", err);
+      });
   };
 
   return (

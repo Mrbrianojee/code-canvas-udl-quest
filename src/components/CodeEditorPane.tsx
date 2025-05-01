@@ -53,10 +53,9 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
           value={code}
           onChange={handleCodeChange}
           onKeyDown={handleKeyDown}
-          className="absolute inset-0 w-full h-full p-4 font-mono bg-transparent z-10 resize-none outline-none"
+          className="absolute inset-0 w-full h-full p-4 font-mono resize-none outline-none z-10 opacity-0"
           style={{ 
             caretColor: "white",
-            color: "transparent",
           }}
           placeholder={`Write your ${language} code here...`}
           spellCheck="false"
