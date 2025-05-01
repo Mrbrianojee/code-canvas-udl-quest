@@ -11,6 +11,7 @@ import { ticTacToeChallenge } from './tic-tac-toe';
 import { integerToRomanChallenge } from './integer-to-roman';
 import { validateEmailChallenge } from './validate-email';
 import { pyramidPatternChallenge } from './pyramid-pattern';
+import { missingNumberChallenge } from './missing-number';
 import { Challenge } from '../types';
 
 // Export all medium challenges as an array
@@ -26,5 +27,6 @@ export const mediumChallenges: Challenge[] = [
   ticTacToeChallenge,
   integerToRomanChallenge,
   validateEmailChallenge,
-  pyramidPatternChallenge
+  pyramidPatternChallenge,
+  missingNumberChallenge
 ];
