@@ -6,6 +6,7 @@ import { medianOfTwoArraysChallenge } from './median-of-two-arrays';
 import { wordLadderChallenge } from './word-ladder';
 import { slidingWindowMaximumChallenge } from './sliding-window-maximum';
 import { findPeakElementChallenge } from './find-peak-element';
+import { longestCommonSubsequenceChallenge } from './longest-common-subsequence';
 import { Challenge } from '../types';
 
 // Export all hard challenges as an array
@@ -16,5 +17,6 @@ export const hardChallenges: Challenge[] = [
   medianOfTwoArraysChallenge,
   wordLadderChallenge,
   slidingWindowMaximumChallenge,
-  findPeakElementChallenge
+  findPeakElementChallenge,
+  longestCommonSubsequenceChallenge
 ];
