@@ -14,3 +14,11 @@ export const getPrismLanguage = (lang: string): string => {
   
   return langMap[lang.toLowerCase()] || "javascript";
 };
+
+// Ensure Prism is properly initialized
+export const initPrism = () => {
+  if (typeof window !== 'undefined') {
+    // This ensures the line numbers plugin is properly initialized
+    Prism.manual = true;
+  }
+};

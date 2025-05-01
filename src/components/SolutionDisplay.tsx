@@ -37,7 +37,7 @@ const SolutionDisplay: React.FC<SolutionDisplayProps> = ({
     <div className="mt-4">
       <h4 className="text-md font-medium mb-2">Solution:</h4>
       <div className="bg-zinc-950 text-zinc-100 p-4 rounded-md overflow-auto max-h-96">
-        <pre ref={preRef} className="m-0">
+        <pre ref={preRef} className="m-0 line-numbers">
           <code className={`language-${getPrismLanguage(language)}`}>
             {initialCode}
           </code>
