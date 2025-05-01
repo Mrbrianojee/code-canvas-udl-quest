@@ -1,11 +1,6 @@
 
 import React, { useRef, useEffect } from 'react';
-import Prism from "prismjs";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-python";
-import "prismjs/components/prism-typescript";
-import "prismjs/plugins/line-numbers/prism-line-numbers";
-import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+import { highlightElement } from "@/utils/codeEditorUtils";
 
 interface CodeEditorPaneProps {
   code: string;
@@ -28,11 +23,10 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
   // Apply syntax highlighting when code or language changes
   useEffect(() => {
     if (codeRef.current) {
-      // Set the content first, then highlight
+      // Set content first
       codeRef.current.textContent = code || " ";
-      
       // Apply highlighting
-      Prism.highlightElement(codeRef.current);
+      highlightElement(codeRef.current);
     }
   }, [code, language]);
 
@@ -63,11 +57,9 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
           value={code}
           onChange={handleCodeChange}
           onKeyDown={handleKeyDown}
-          className="absolute inset-0 w-full h-full p-4 font-mono resize-none text-transparent caret-white"
+          className="absolute inset-0 w-full h-full p-4 font-mono resize-none bg-transparent text-transparent caret-white z-10"
           style={{
             caretColor: "white",
-            background: "transparent",
-            zIndex: 2
           }}
           placeholder={`Write your ${language} code here...`}
           spellCheck="false"

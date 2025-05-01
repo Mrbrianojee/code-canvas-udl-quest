@@ -1,14 +1,8 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import ExecutableCodeEditor from "../ExecutableCodeEditor";
-import Prism from "prismjs";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-python";
-import "prismjs/components/prism-typescript";
-import "prismjs/plugins/line-numbers/prism-line-numbers";
-import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 interface CodeSectionProps {
   solutions: {
@@ -21,31 +15,9 @@ const CodeSection = ({ solutions }: CodeSectionProps) => {
   const [language, setLanguage] = useState<string>("javascript");
   const availableLanguages = Object.keys(solutions);
   
-  // Initialize Prism highlighting when component mounts or language changes
-  useEffect(() => {
-    if (typeof Prism !== 'undefined') {
-      // Small timeout to ensure the DOM is ready
-      setTimeout(() => {
-        try {
-          Prism.highlightAll();
-        } catch (error) {
-          console.error("Error highlighting code:", error);
-        }
-      }, 100);
-    }
-  }, [language, showSolution]);
-  
   // Handle language change
   const handleLanguageChange = (newLanguage: string) => {
     setLanguage(newLanguage);
-    // Reset solution visibility when changing language
-    setTimeout(() => {
-      try {
-        Prism.highlightAll();
-      } catch (error) {
-        console.error("Error highlighting after language change:", error);
-      }
-    }, 50);
   };
   
   return (
@@ -60,7 +32,7 @@ const CodeSection = ({ solutions }: CodeSectionProps) => {
         <TabsList className="mb-2">
           {availableLanguages.map(lang => (
             <TabsTrigger 
-              key={lang} 
+              key={`lang-${lang}`} 
               value={lang}
               className="capitalize"
             >
@@ -70,7 +42,7 @@ const CodeSection = ({ solutions }: CodeSectionProps) => {
         </TabsList>
         
         {availableLanguages.map(lang => (
-          <TabsContent key={lang} value={lang} className="mt-0">
+          <TabsContent key={`content-${lang}`} value={lang} className="mt-0">
             <ExecutableCodeEditor 
               initialCode={solutions[lang]}
               language={lang}

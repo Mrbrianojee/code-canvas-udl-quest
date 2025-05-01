@@ -1,11 +1,6 @@
 
 import React, { useEffect, useRef } from 'react';
-import Prism from 'prismjs';
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-python";
-import "prismjs/components/prism-typescript";
-import "prismjs/plugins/line-numbers/prism-line-numbers";
-import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+import { highlightElement } from '@/utils/codeEditorUtils';
 
 interface SolutionDisplayProps {
   initialCode: string;
@@ -24,9 +19,8 @@ const SolutionDisplay: React.FC<SolutionDisplayProps> = ({
     if (codeRef.current) {
       // Set content first
       codeRef.current.textContent = initialCode || " ";
-      
       // Apply highlighting
-      Prism.highlightElement(codeRef.current);
+      highlightElement(codeRef.current);
     }
   }, [initialCode, language]);
   

@@ -3,18 +3,16 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Play, Copy } from "lucide-react";
-import Prism from "prismjs";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-python";
-import "prismjs/components/prism-typescript";
-import "prismjs/plugins/line-numbers/prism-line-numbers";
-import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import { executeJavaScript, executePython } from "@/utils/codeExecution";
 import { getPrismLanguage, initPrism } from "@/utils/codeEditorUtils";
 import { usePyodide } from "@/hooks/usePyodide";
 import CodeEditorPane from "./CodeEditorPane";
 import SolutionDisplay from "./SolutionDisplay";
 import CodeOutputDisplay from "./CodeOutputDisplay";
+
+// Import Prism CSS
+import "prismjs/themes/prism-tomorrow.css"; 
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 interface ExecutableCodeEditorProps {
   initialCode: string;
@@ -35,15 +33,15 @@ const ExecutableCodeEditor = ({
   const isPythonLanguage = language.toLowerCase() === "python";
   const { pyodide, pyodideReady, pyodideLoading } = usePyodide(isPythonLanguage);
 
+  // Initialize code when component mounts
+  useEffect(() => {
+    setCode(initialCode || "");
+  }, [initialCode]);
+
   // Initialize Prism when component mounts
   useEffect(() => {
     initPrism();
   }, []);
-
-  // Reset code when language changes
-  useEffect(() => {
-    setCode("");
-  }, [language]);
 
   const handleExecute = async () => {
     setIsExecuting(true);
