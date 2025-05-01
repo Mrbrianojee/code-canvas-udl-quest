@@ -5,6 +5,7 @@ import { mergeIntervalsChallenge } from './merge-intervals';
 import { validParenthesesChallenge } from './valid-parentheses';
 import { rotateArrayChallenge } from './rotate-array';
 import { palindromeChallenge } from './palindrome';
+import { sudokuSolverChallenge } from './sudoku-solver';
 import { Challenge } from '../types';
 
 // Export all medium challenges as an array
@@ -14,5 +15,6 @@ export const mediumChallenges: Challenge[] = [
   mergeIntervalsChallenge,
   validParenthesesChallenge,
   rotateArrayChallenge,
-  palindromeChallenge
+  palindromeChallenge,
+  sudokuSolverChallenge
 ];
