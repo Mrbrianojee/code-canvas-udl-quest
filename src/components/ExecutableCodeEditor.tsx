@@ -27,26 +27,17 @@ const ExecutableCodeEditor = ({
   language,
   showSolutionProp = false
 }: ExecutableCodeEditorProps) => {
-  // Start with empty code instead of initialCode
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [isExecuting, setIsExecuting] = useState(false);
+  const [showSolution, setShowSolution] = useState(showSolutionProp);
   
   const isPythonLanguage = language.toLowerCase() === "python";
   const { pyodide, pyodideReady, pyodideLoading } = usePyodide(isPythonLanguage);
 
-  // Reset to empty code when language changes, not initialCode
+  // Reset code when language changes
   useEffect(() => {
     setCode("");
-    
-    // Ensure Prism is ready for the new language
-    setTimeout(() => {
-      try {
-        Prism.highlightAll();
-      } catch (error) {
-        console.error("Error highlighting after language change:", error);
-      }
-    }, 50);
   }, [language]);
 
   const handleExecute = async () => {
@@ -116,16 +107,7 @@ const ExecutableCodeEditor = ({
     navigator.clipboard.writeText(initialCode)
       .then(() => {
         setCode(initialCode);
-        toast.success("Solution copied to code editor");
-        
-        // Add delay to allow Prism to highlight after updating code
-        setTimeout(() => {
-          try {
-            Prism.highlightAll();
-          } catch (error) {
-            console.error("Error highlighting after copying solution:", error);
-          }
-        }, 50);
+        toast.success("Solution copied to editor");
       })
       .catch(err => {
         toast.error("Failed to copy solution");

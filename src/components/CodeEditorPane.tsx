@@ -22,55 +22,51 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
   handleCodeChange, 
   handleKeyDown 
 }) => {
-  const editorRef = useRef<HTMLPreElement>(null);
+  const preRef = useRef<HTMLPreElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   
   // Apply syntax highlighting whenever code or language changes
   useEffect(() => {
-    if (editorRef.current) {
-      const prismLanguage = getPrismLanguage(language);
-      
+    if (preRef.current) {
       // Set the code content for highlighting
-      editorRef.current.textContent = code || ' ';
+      preRef.current.textContent = code;
       
       // Apply highlighting with a small delay
       setTimeout(() => {
         try {
-          Prism.highlightElement(editorRef.current);
+          Prism.highlightElement(preRef.current);
         } catch (error) {
           console.error("Error highlighting editor code:", error);
         }
       }, 10);
     }
-  }, [code, language, getPrismLanguage]);
+  }, [code, language]);
   
   return (
     <div className="relative border rounded-md overflow-hidden">
-      <div className="relative bg-zinc-950 h-80 w-full">
+      <div className="relative bg-zinc-950 h-80 w-full overflow-auto">
+        {/* Syntax highlighted code display */}
+        <pre ref={preRef} className="absolute inset-0 w-full h-full m-0 p-4 overflow-auto pointer-events-none">
+          <code className={`language-${getPrismLanguage(language)} block w-full h-full font-mono`}>
+            {code || ' '}
+          </code>
+        </pre>
+        
         {/* Hidden textarea for user input */}
         <textarea
           ref={textareaRef}
           value={code}
           onChange={handleCodeChange}
           onKeyDown={handleKeyDown}
-          className="absolute inset-0 w-full h-full p-4 font-mono resize-none outline-none z-10 bg-transparent"
+          className="absolute inset-0 w-full h-full p-4 font-mono resize-none outline-none bg-transparent"
           style={{ 
             caretColor: "white",
-            color: "rgba(255, 255, 255, 0.8)",
+            color: "rgba(255, 255, 255, 0.6)",
+            zIndex: 10
           }}
           placeholder={`Write your ${language} code here...`}
           spellCheck="false"
         />
-        
-        {/* Syntax highlighted code display */}
-        <pre className="line-numbers absolute inset-0 w-full h-full m-0 p-0 overflow-auto">
-          <code 
-            ref={editorRef}
-            className={`language-${getPrismLanguage(language)} block w-full h-full p-4 font-mono`}
-          >
-            {code || ' '} {/* Ensure there's always content for highlighting */}
-          </code>
-        </pre>
       </div>
     </div>
   );
