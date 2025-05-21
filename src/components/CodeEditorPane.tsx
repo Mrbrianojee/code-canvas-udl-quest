@@ -42,7 +42,7 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
     <div className="relative border rounded-md overflow-hidden">
       <div className="editor-container relative bg-zinc-950 min-h-[200px] h-auto max-h-[500px] w-full overflow-auto">
         {/* Code display with syntax highlighting */}
-        <pre className="code-mirror-pre m-0 p-4">
+        <pre className="code-mirror-pre">
           <code 
             ref={codeRef}
             className={`language-${getPrismLanguage(language)} block w-full font-mono`}
@@ -57,7 +57,7 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
           value={code}
           onChange={handleCodeChange}
           onKeyDown={handleKeyDown}
-          className="code-mirror-textarea absolute inset-0 w-full h-full p-4 resize-none bg-transparent outline-none"
+          className="code-mirror-textarea"
           spellCheck="false"
           placeholder={`Write your ${language} code here...`}
         />
