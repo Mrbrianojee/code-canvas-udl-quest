@@ -30,12 +30,25 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
     }
   }, [code, language]);
 
-  // Ensure textarea and code display are perfectly aligned
+  // Handle textarea scroll to match underlying pre element
+  const handleScroll = (e: React.UIEvent<HTMLTextAreaElement>) => {
+    if (preRef.current && e.currentTarget) {
+      preRef.current.scrollTop = e.currentTarget.scrollTop;
+      preRef.current.scrollLeft = e.currentTarget.scrollLeft;
+    }
+  };
+
+  // Ensure textarea and code display match in dimensions and position
   useEffect(() => {
-    if (textareaRef.current && preRef.current) {
-      // Force a consistent starting point for both elements
-      preRef.current.scrollTop = 0;
+    if (textareaRef.current && preRef.current && codeRef.current) {
+      // Reset positions
       textareaRef.current.scrollTop = 0;
+      preRef.current.scrollTop = 0;
+      
+      // Force same height
+      const height = Math.max(preRef.current.scrollHeight, 200);
+      textareaRef.current.style.height = `${height}px`;
+      preRef.current.style.height = `${height}px`;
     }
   }, [code]);
   
@@ -58,6 +71,7 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
           value={code}
           onChange={handleCodeChange}
           onKeyDown={handleKeyDown}
+          onScroll={handleScroll}
           className="code-mirror-textarea"
           spellCheck="false"
           placeholder={`Write your ${language} code here...`}

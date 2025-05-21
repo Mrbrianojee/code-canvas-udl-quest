@@ -115,13 +115,20 @@
     font-family: 'Fira Code', 'Menlo', monospace;
   }
   
-  /* Code editor styling with perfect vertical and horizontal alignment */
+  /* Editor container to enforce proper positioning context */
+  .editor-container {
+    position: relative;
+    width: 100%;
+    min-height: 200px;
+  }
+  
+  /* Code mirror pre styling - must match textarea exactly */
   .code-mirror-pre {
     position: relative;
     margin: 0;
     padding: 16px;
     font-family: 'Fira Code', 'Menlo', monospace;
-    font-size: 0.875rem;
+    font-size: 14px;
     line-height: 1.5;
     tab-size: 2;
     white-space: pre;
@@ -131,11 +138,14 @@
     box-sizing: border-box;
     min-height: 200px;
     overflow: visible;
-    /* Force consistent rendering */
-    -webkit-font-smoothing: auto;
-    -moz-osx-font-smoothing: auto;
+    /* For exact rendering */
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: geometricPrecision;
+    width: 100%;
   }
   
+  /* Textarea must exactly overlay the pre element */
   .code-mirror-textarea {
     position: absolute;
     top: 0;
@@ -145,7 +155,7 @@
     margin: 0;
     padding: 16px;
     font-family: 'Fira Code', 'Menlo', monospace;
-    font-size: 0.875rem;
+    font-size: 14px;
     line-height: 1.5;
     tab-size: 2;
     white-space: pre;
@@ -154,14 +164,15 @@
     background: transparent;
     caret-color: rgba(255, 255, 255, 0.9);
     resize: none;
-    overflow: hidden;
+    overflow: auto;
     z-index: 10;
     outline: none;
     border: none;
     box-sizing: border-box;
-    /* Force consistent rendering */
-    -webkit-font-smoothing: auto;
-    -moz-osx-font-smoothing: auto;
+    /* For exact rendering */
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: geometricPrecision;
   }
 
   /* Custom styling for line numbers */
