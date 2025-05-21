@@ -24,6 +24,7 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
   // Apply syntax highlighting when code or language changes
   useEffect(() => {
     if (codeRef.current) {
+      // Important: We need to ensure the code element has identical content
       codeRef.current.textContent = code || " ";
       highlightElement(codeRef.current);
     }
@@ -32,10 +33,9 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
   // Ensure textarea and code display are perfectly aligned
   useEffect(() => {
     if (textareaRef.current && preRef.current) {
-      // Match heights dynamically
-      const height = Math.max(preRef.current.scrollHeight, 200); // Minimum height of 200px
-      preRef.current.style.height = `${height}px`;
-      textareaRef.current.style.height = `${height}px`;
+      // Force a consistent starting point for both elements
+      preRef.current.scrollTop = 0;
+      textareaRef.current.scrollTop = 0;
     }
   }, [code]);
   

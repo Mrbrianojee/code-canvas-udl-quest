@@ -131,6 +131,9 @@
     box-sizing: border-box;
     min-height: 200px;
     overflow: visible;
+    /* Force consistent rendering */
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
   }
   
   .code-mirror-textarea {
@@ -156,6 +159,9 @@
     outline: none;
     border: none;
     box-sizing: border-box;
+    /* Force consistent rendering */
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
   }
 
   /* Custom styling for line numbers */
