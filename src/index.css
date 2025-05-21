@@ -116,15 +116,28 @@
     font-family: 'Fira Code', 'Menlo', monospace;
   }
   
-  /* Ensure the textarea in the code editor works properly with visible cursor */
+  /* Cursor alignment fixes */
+  .editor-container {
+    position: relative;
+  }
+  
+  .editor-container pre,
+  .editor-container code,
   .editor-container textarea {
     font-family: 'Fira Code', 'Menlo', monospace;
     font-size: 0.875rem;
     line-height: 1.5;
     tab-size: 2;
+    white-space: pre;
     letter-spacing: normal;
-    color: transparent !important;
-    caret-color: white !important;
+  }
+  
+  .editor-container textarea {
+    text-indent: 0;
+    padding: inherit;
+    color: transparent;
+    caret-color: white;
+    -webkit-text-fill-color: transparent;
   }
   
   /* Custom styling for line numbers */
