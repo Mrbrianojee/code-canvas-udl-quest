@@ -19,33 +19,34 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
 }) => {
   const codeRef = useRef<HTMLElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const preRef = useRef<HTMLPreElement>(null);
   
   // Apply syntax highlighting when code or language changes
   useEffect(() => {
     if (codeRef.current) {
-      // Make sure we never have empty content to maintain height
       codeRef.current.textContent = code || " ";
-      // Apply highlighting
       highlightElement(codeRef.current);
     }
   }, [code, language]);
 
-  // Adjust textarea height to match content
+  // Ensure textarea and code display are perfectly aligned
   useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    if (textareaRef.current && preRef.current) {
+      // Match heights dynamically
+      const height = Math.max(preRef.current.scrollHeight, 200); // Minimum height of 200px
+      preRef.current.style.height = `${height}px`;
+      textareaRef.current.style.height = `${height}px`;
     }
   }, [code]);
   
   return (
     <div className="relative border rounded-md overflow-hidden">
-      <div className="editor-container relative bg-zinc-950 min-h-[200px] h-auto max-h-[500px] w-full overflow-auto">
+      <div className="editor-container relative bg-zinc-950 w-full overflow-auto">
         {/* Code display with syntax highlighting */}
-        <pre className="code-mirror-pre">
+        <pre ref={preRef} className="code-mirror-pre">
           <code 
             ref={codeRef}
-            className={`language-${getPrismLanguage(language)} block w-full font-mono`}
+            className={`language-${getPrismLanguage(language)}`}
           >
             {code || ' '}
           </code>

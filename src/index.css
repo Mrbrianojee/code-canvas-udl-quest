@@ -115,7 +115,7 @@
     font-family: 'Fira Code', 'Menlo', monospace;
   }
   
-  /* Code editor styling with perfect alignment */
+  /* Code editor styling with perfect vertical and horizontal alignment */
   .code-mirror-pre {
     position: relative;
     margin: 0;
@@ -128,10 +128,9 @@
     letter-spacing: normal;
     z-index: 1;
     border: none;
-    overflow: visible;
     box-sizing: border-box;
     min-height: 200px;
-    height: auto;
+    overflow: visible;
   }
   
   .code-mirror-textarea {
@@ -142,20 +141,20 @@
     height: 100%;
     margin: 0;
     padding: 16px;
-    color: transparent;
-    caret-color: rgba(255, 255, 255, 0.9);
-    background: transparent;
-    resize: none;
-    overflow: hidden;
-    z-index: 10;
-    outline: none;
-    border: none;
     font-family: 'Fira Code', 'Menlo', monospace;
     font-size: 0.875rem;
     line-height: 1.5;
     tab-size: 2;
     white-space: pre;
     letter-spacing: normal;
+    color: transparent;
+    background: transparent;
+    caret-color: rgba(255, 255, 255, 0.9);
+    resize: none;
+    overflow: hidden;
+    z-index: 10;
+    outline: none;
+    border: none;
     box-sizing: border-box;
   }
 
