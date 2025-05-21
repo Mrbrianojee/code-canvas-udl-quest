@@ -23,7 +23,7 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
   // Apply syntax highlighting when code or language changes
   useEffect(() => {
     if (codeRef.current) {
-      // Set content first
+      // Set content and ensure it's never empty to maintain consistent height
       codeRef.current.textContent = code || " ";
       // Apply highlighting
       highlightElement(codeRef.current);
@@ -51,7 +51,7 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
           </code>
         </pre>
         
-        {/* Hidden textarea for user input */}
+        {/* Hidden textarea for user input - positioned exactly over the code display */}
         <textarea
           ref={textareaRef}
           value={code}
@@ -60,6 +60,7 @@ const CodeEditorPane: React.FC<CodeEditorPaneProps> = ({
           className="code-mirror-textarea"
           spellCheck="false"
           placeholder={`Write your ${language} code here...`}
+          aria-label={`${language} code editor`}
         />
       </div>
     </div>
